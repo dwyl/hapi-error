@@ -1,0 +1,27 @@
+{
+  "name": "hapi-error",
+  "version": "0.0.1",
+  "description": "catch errors in your hapi application and display the appropriate error message/page",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dwyl/hapi-error.git"
+  },
+  "keywords": [
+    "error",
+    "message",
+    "html",
+    "json",
+    "page",
+    "useful"
+  ],
+  "author": "dwyl & co",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/dwyl/hapi-error/issues"
+  },
+  "homepage": "https://github.com/dwyl/hapi-error#readme"
+}
