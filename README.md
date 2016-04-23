@@ -10,8 +10,9 @@ error messages in your Hapi apps.
 
 ## *What*?
 
-Under the hood, Hapi uses `Boom` to handle errors.
-These errors are returned as JSON
+Under the hood, Hapi uses
+[`Boom`](https://github.com/dwyl/learn-hapi#error-handling-with-boom)
+to handle errors. These errors are returned as `JSON`. e.g:
 
 If a URL/Endpoint does not exist a `404` is displayed:
 ![hapi-login-404-error](https://cloud.githubusercontent.com/assets/194400/14770263/06bdc6dc-0a65-11e6-9f9b-80944711a4f1.png)
@@ -25,9 +26,15 @@ And if an *unknown* error occurs on the server, a `500` error is *thrown*:
 
 ![localhost-500-error](https://cloud.githubusercontent.com/assets/194400/14770517/98a4b6d6-0a6b-11e6-8448-4b66e3df9a9a.png)
 
+Our objective is to *re-purpose* the `Boom` errors and instead displaya human-friendly error *page*.
 
 
-But it does have a *useful* error object we can use.
+## *How*?
+
+When there is an error in the request/response cycle,
+the Hapi `request` Object has *useful* error object we can use.
+
+Try logging the `request.response` in one of your Hapi route handlers:
 
 ```js
 console.log(request.response);
