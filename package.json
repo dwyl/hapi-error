@@ -8,7 +8,7 @@
     "fast": "./node_modules/tape/bin/tape ./test/*.test.js",
     "test": "npm run create && npm run coverage",
     "dev": "PORT=8000 ./node_modules/.bin/nodemon test/server_example.js",
-    "start": "npm run create && node lib/server.js",
+    "start": "node test/server_example.js",
     "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100"
   },
   "repository": {

@@ -23,7 +23,7 @@ server.ext('onPreResponse', function (request, reply) {
             title: 'Server Error',
             statusCode: statusCode,
             errorName:  err.output.payload.error,
-            errorMessage: 'Sorry, Something went wrong.'
+            errorMessage: 'Sorry, Something went wrong, please retrace your steps.'
         })
         .code(statusCode);
     }
