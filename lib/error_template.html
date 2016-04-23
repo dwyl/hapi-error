@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+
+    <style>
+      body {
+        font-family: Helvetica, sans-serif;
+        text-align: center;
+        background: #f1c40f;
+        color: #424545;
+      }
+      .error h1 {
+        font-size: 10em;
+        position: absolute;
+        top: 30%;
+        left: 45%;
+        margin-top: -50px;
+        margin-left: -100px;
+      }
+      .error h2 {
+        top: 10%;
+      }
+    </style>
+</head>
+<body>
+    <div class="error">
+        <h2>&#x25D5; &#xFE35; &#x25D5;<br/> <br/>{{errorMessage}}</h2>
+        <h1>{{statusCode}}</h1>
+    </div>
+</body>
+</html>

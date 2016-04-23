@@ -4,7 +4,12 @@
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "index.js",
   "scripts": {
-    "test": "tape"
+    "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js  | node_modules/tap-spec/bin/cmd.js",
+    "fast": "./node_modules/tape/bin/tape ./test/*.test.js",
+    "test": "npm run create && npm run coverage",
+    "dev": "PORT=8000 ./node_modules/.bin/nodemon test/server_example.js",
+    "start": "npm run create && node lib/server.js",
+    "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100"
   },
   "repository": {
     "type": "git",
@@ -23,5 +28,21 @@
   "bugs": {
     "url": "https://github.com/dwyl/hapi-error/issues"
   },
-  "homepage": "https://github.com/dwyl/hapi-error#readme"
+  "homepage": "https://github.com/dwyl/hapi-error#readme",
+  "dependencies": {
+    "vision": "^4.1.0"
+  },
+  "devDependencies": {
+    "decache": "^3.0.5",
+    "handlebars": "^4.0.5",
+    "hapi": "^13.3.0",
+    "istanbul": "^0.4.2",
+    "nodemon": "^1.9.1",
+    "pre-commit": "^1.1.2",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.4.0"
+  },
+  "pre-commit": [
+    "check-coverage"
+  ]
 }
