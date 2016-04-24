@@ -14,26 +14,8 @@ server.route({
     }
 });
 
-// server.ext('onPreResponse', function (request, reply) {
-//     var req = request.response;
-//     console.log(request.response);
-//     if (req.isBoom) {
-//
-//       var statusCode = req.output.payload.statusCode
-//       console.log(req);
-//       return reply.view('error_template', {
-//         title: 'Server Error',
-//         statusCode: statusCode,
-//         errorName:  req.output.payload.error,
-//         errorMessage: 'Sorry, something went wrong, please retrace your steps.'
-//       })
-//       .code(statusCode);
-//     }
-//     reply.continue();
-// });
 
-
-server.register(require('vision'), function (err) {
+server.register([require('../lib'), require('vision')], function (err) {
 
     if (err) {
         throw err;
@@ -53,3 +35,5 @@ server.register(require('vision'), function (err) {
         console.log('Visit:', server.info.uri);
     });
 });
+
+module.exports = server;

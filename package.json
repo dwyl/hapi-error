@@ -1,6 +1,6 @@
 {
   "name": "hapi-error",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "index.js",
   "scripts": {
