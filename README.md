@@ -38,12 +38,13 @@ The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi
 
 ![hapi-error-screens](https://cloud.githubusercontent.com/assets/194400/15275274/ef9e5402-1abe-11e6-9313-71b11c61f032.png)
 
+> ***Note***: *super basic error page example is just what we came up with in a few minutes, you have full control over what your error page looks like, so use your imagination*!
 
-> Note: if the client expects a JSON response simply define
+> ***Note***: if the client expects a JSON response simply define
 that in the `headers.accept` and it will still receive the JSON erro messages.
 
 
-## *How*? 
+## *How*?
 
 Error handling in 3 *easy* steps:
 
@@ -122,11 +123,56 @@ Your `error_template.html` (*or `error_template.ext` `error_template.jsx`*) shou
 
 > for an example see: [`/example/error_template.html`](https://github.com/dwyl/hapi-error/blob/master/example/error_template.html)
 
-That's it!
+*That's it*!
 
+*Want more...?* :wink:
+
+## *Custom* Error Messages using `Hoek.assert`
+
+[`Hoek`](https://github.com/hapijs/hoek/blob/master/API.md#assertcondition-message) (*a utility library extensively used internally by Hapi*) has an `assert` method which allows
+you to "*throw*" errors one line in your code.
+
+Consider the following Hapi route handler code that is fetching data from a generic Database:
+
+```js
+function handler (request, reply) {
+  db.get('yourkey', function (err, data) {
+    if (err) {
+      return reply('error_template', { msg: 'A database error occurred'});
+    } else {
+      return reply('amazing_app_view', {data: data});
+    }
+  });
+}
+```
+This can be re-written (*simplified*) using `Hoek.assert`
+
+```js
+var Hoek = require('hoek'); // require Hoek somewhere in your code
+
+function handler (request, reply) {
+  db.get('yourkey', function (err, data) { // much simpler, right?
+    Hoek.assert(!err, 'A database error occurred');
+    return reply('amazing_app_view', {data: data});
+  }); // this has *exactly* the same effect in much less code.
+}
+```
+#### Explanation:
+
+`Hoek.assert(!err, 'A database error occurred');`
+Hoek asserts that there is *no error*. Which means that if
+there *is* an error, it will be "*thrown*" with the message you define in the *second argument*.
+
+Output:
+![hoek-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/15276087/58df6fd0-1ad5-11e6-841d-e49495621775.png)
+<br />
+
+
+
+<br />
 ---
 
-### Implementation Detail:
+### Under the Hood / Implementation Detail:
 
 When there is an error in the request/response cycle,
 the Hapi `request` Object has *useful* error object we can use.
@@ -185,3 +231,8 @@ plugin you can use in your project with user-friendly **HTML error pages**
 (*when the client requests `HTML`*) and App/API-friendly **JSON error responses**
 (*when the client asks for `JSON`*) then see the code in `/lib/index.js`
 and usage instructions above!
+
+## Background Reading & Research
+
++ Writing *useful* / *friendly* error messages:
+https://medium.com/@thomasfuchs/how-to-write-an-error-message-883718173322
