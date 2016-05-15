@@ -1,6 +1,6 @@
 {
   "name": "hapi-error",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "index.js",
   "scripts": {
@@ -29,10 +29,9 @@
     "url": "https://github.com/dwyl/hapi-error/issues"
   },
   "homepage": "https://github.com/dwyl/hapi-error#readme",
-  "dependencies": {
-    "vision": "^4.1.0"
-  },
+  "dependencies": { },
   "devDependencies": {
+    "boom": "^3.1.3",
     "decache": "^3.0.5",
     "handlebars": "^4.0.5",
     "hapi": "^13.4.0",
@@ -40,7 +39,8 @@
     "nodemon": "^1.9.1",
     "pre-commit": "^1.1.2",
     "tap-spec": "^4.1.1",
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "vision": "^4.1.0"
   },
   "pre-commit": [
     "check-coverage"

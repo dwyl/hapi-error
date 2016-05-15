@@ -10,34 +10,60 @@ test("GET / shows a page with links", function (t) {
   };
   server.inject(options, function(res){
     // console.log(res);
-    t.ok(res.payload.includes('hello'));
-    t.equal(res.statusCode, 200);
+    t.ok(res.payload.includes('hello'), 'No Errors');
+    t.equal(res.statusCode, 200, 'statusCode 200');
     t.end();
   });
 });
 
-test("GET /500 returns 500 Error HTML Page", function (t) {
+test("GET /admin expect to see 401 unauthorized error", function (t) {
   var options = {
     method: 'GET',
-    url: '/500'
+    url: '/admin'
+  };
+  server.inject(options, function(res){
+    // console.log(res.playload);
+    t.ok(res.payload.includes('Please Login'), 'Please login to see /admin');
+    t.equal(res.statusCode, 401, 'statusCode 401');
+    t.end();
+  });
+});
+
+test("GET /notfound returns 404", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/notfound'
   };
   server.inject(options, function(res){
     // console.log(res);
-    t.ok(res.payload.includes('500'));
-    t.equal(res.statusCode, 500);
+    t.ok(res.payload.includes('not available'), 'page not available');
+    t.equal(res.statusCode, 404, 'statusCode 404');
     t.end();
   });
 });
 
-test("GET /500 with accept 'application/json' header", function (t) {
+test("GET /error returns 500 Error HTML Page", function (t) {
   var options = {
     method: 'GET',
-    url: '/500',
+    url: '/error'
+  };
+  server.inject(options, function(res){
+    // console.log(res);
+    t.ok(res.payload.includes('500'), 'Internal Server Error');
+    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.end();
+  });
+});
+
+test("GET /error returns JSON when headers.accept 'application/json'", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/error',
     headers: { accept: 'application/json' }
   };
   server.inject(options, function(res){
-    console.log(res.playload);
-    // t.ok(res.payload.includes('500'));
+    // console.log(res.payload, typeof res.payload);
+    t.ok(res.payload.includes('Internal Server Error'), '500 Server Error');
     t.equal(res.statusCode, 500);
     t.end();
   });

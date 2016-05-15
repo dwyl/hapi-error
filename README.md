@@ -26,12 +26,77 @@ And if an *unknown* error occurs on the server, a `500` error is *thrown*:
 
 ![localhost-500-error](https://cloud.githubusercontent.com/assets/194400/14770517/98a4b6d6-0a6b-11e6-8448-4b66e3df9a9a.png)
 
-Our objective is to *re-purpose* the `Boom` errors and instead displaya human-friendly error *page*.
+Our objective is to *re-purpose* the `Boom` errors and instead display human-friendly error *page*.
 
 
 ## *How*?
 
+### 1. Install the [plugin](https://www.npmjs.com/package/hapi-error) from npm:
 
+```sh
+npm install hapi-error --save
+```
+
+### 2. Include the plugin in your Hapi project
+
+Includ the plugin when you `register` your server:
+
+```js
+var Hapi = require('hapi');
+var Path = require('path');
+var Boom = require('boom');
+var server = new Hapi.Server();
+server.connection({ port: process.env.PORT || 8000 });
+
+server.route([
+  {
+    method: 'GET',
+    path: '/',
+    config: {
+      handler: function (request, reply) {
+        reply('hello world');
+      }
+    }
+  },
+  {
+    method: 'GET',
+    path: '/error',
+    config: {
+      handler: function (request, reply) {
+        reply(new Error('500'));
+      }
+    }
+  }
+]);
+// this is where we include the hapi-error plugin:
+server.register([require('hapi-error'), require('vision')], function (err) {
+  if (err) {
+    throw err;
+  }
+  server.views({
+    engines: {
+      html: require('handlebars') // or Jade or React etc.
+    },
+    path: Path.resolve(__dirname, './../lib')
+  });
+
+  server.start(function (err) {
+    if (err) {
+      throw err;
+    }
+    console.log('Visit:', server.info.uri);
+  });
+});
+
+module.exports = server;
+```
+
+> See: [/server_example.js]() for simple example
+
+### 3. Ensure that you have a View called `error_template`
+
+> Note: `hapi-error` plugin *expects* you are using [`Vision`](https://github.com/hapijs/vision) (*the standard view rendering library for Hapi apps*)
+which allows you to use Handlebars, Jade, React, etc. for your templates.
 
 ### Implementation Detail:
 
