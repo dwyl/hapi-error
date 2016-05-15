@@ -36,11 +36,11 @@ And if an *unknown* error occurs on the server, a `500` error is *thrown*:
 
 The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi errors and your custom ones*) and instead display human-friendly error *page*:
 
-
+![hapi-error-screens](https://cloud.githubusercontent.com/assets/194400/15275274/ef9e5402-1abe-11e6-9313-71b11c61f032.png)
 
 
 > Note: if the client expects a JSON response simply define
-that in the `headers.accept` entry.
+that in the `headers.accept` and it will still receive the JSON erro messages.
 
 
 ## *How*?
