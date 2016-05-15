@@ -34,7 +34,7 @@ And if an *unknown* error occurs on the server, a `500` error is *thrown*:
 
 ![localhost-500-error](https://cloud.githubusercontent.com/assets/194400/14770517/98a4b6d6-0a6b-11e6-8448-4b66e3df9a9a.png)
 
-The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi errors and your custom ones*) and instead display human-friendly error *page*:
+The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi errors and your custom ones*) and instead display human-friendly error *page* (*which you can fully customise by defining your own `error_template` view*):
 
 ![hapi-error-screens](https://cloud.githubusercontent.com/assets/194400/15275274/ef9e5402-1abe-11e6-9313-71b11c61f032.png)
 
@@ -44,6 +44,8 @@ that in the `headers.accept` and it will still receive the JSON erro messages.
 
 
 ## *How*?
+
+> Try it: http://hapi-error.herokuapp.com/error
 
 ### 1. Install the [plugin](https://www.npmjs.com/package/hapi-error) from npm:
 
