@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{errorTitle}}</title>
+
+    <style>
+      body {
+        font-family: Helvetica, sans-serif;
+        text-align: center;
+        background: #f1c40f;
+        transition: background 500ms ease;
+        color: #424545;
+      }
+      .error h1 {
+        font-size: 10em;
+      }
+      .error h2 {
+        top: 10%;
+      }
+      .error h2.emoji {
+        font-size: 4em;
+      }
+      body:hover, body:active {
+        background: #2ecc71;
+        transition: background 3s ease-in;
+      }
+    </style>
+</head>
+<body>
+    <div class="error">
+      <h2 class='emoji'>&#x25D5; &#xFE35; &#x25D5;</h2>
+      <h2>{{errorMessage}}</h2>
+      <h1>{{statusCode}}</h1>
+    </div>
+</body>
+</html>

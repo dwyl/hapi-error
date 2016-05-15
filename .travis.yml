@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "4.4.0"
+sudo: false
+after_success:
+  - pip install --user codecov
+  - codecov --file coverage/lcov.info --disable search
