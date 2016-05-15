@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js  | node_modules/tap-spec/bin/cmd.js",
-    "fast": "./node_modules/tape/bin/tape ./test/*.test.js",
-    "test": "npm run create && npm run coverage",
+    "nocov": "./node_modules/tape/bin/tape ./test/*.test.js",
+    "test": "npm run coverage",
     "dev": "PORT=8000 ./node_modules/.bin/nodemon test/server_example.js",
     "start": "node test/server_example.js",
     "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100"
@@ -35,7 +35,7 @@
   "devDependencies": {
     "decache": "^3.0.5",
     "handlebars": "^4.0.5",
-    "hapi": "^13.3.0",
+    "hapi": "^13.4.0",
     "istanbul": "^0.4.2",
     "nodemon": "^1.9.1",
     "pre-commit": "^1.1.2",
