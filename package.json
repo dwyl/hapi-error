@@ -1,8 +1,8 @@
 {
   "name": "hapi-error",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js  | node_modules/tap-spec/bin/cmd.js",
     "nocov": "./node_modules/tape/bin/tape ./test/*.test.js",

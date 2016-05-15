@@ -43,7 +43,9 @@ The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi
 that in the `headers.accept` and it will still receive the JSON erro messages.
 
 
-## *How*?
+## *How*? 
+
+Error handling in 3 *easy* steps:
 
 ### 1. Install the [plugin](https://www.npmjs.com/package/hapi-error) from npm:
 
