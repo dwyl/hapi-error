@@ -1,5 +1,5 @@
 var test = require('tape');
-var server = require('./server_example');
+var server = require('../example/server_example');
 
 /************************* TESTS ***************************/
 test("GET / shows a page with links", function (t) {

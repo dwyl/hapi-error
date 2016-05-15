@@ -1,14 +1,14 @@
 {
   "name": "hapi-error",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "index.js",
   "scripts": {
     "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js  | node_modules/tap-spec/bin/cmd.js",
     "nocov": "./node_modules/tape/bin/tape ./test/*.test.js",
     "test": "npm run coverage",
-    "dev": "PORT=8000 ./node_modules/.bin/nodemon test/server_example.js",
-    "start": "node test/server_example.js",
+    "dev": "PORT=8000 ./node_modules/.bin/nodemon example/server_example.js",
+    "start": "node example/server_example.js",
     "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100"
   },
   "repository": {
@@ -29,19 +29,19 @@
     "url": "https://github.com/dwyl/hapi-error/issues"
   },
   "homepage": "https://github.com/dwyl/hapi-error#readme",
-  "dependencies": {
-    "boom": "^3.1.3",
-    "hapi": "^13.4.0",
-    "handlebars": "^4.0.5",
-    "vision": "^4.1.0"
-   },
+  "dependencies": {},
   "devDependencies": {
+    "boom": "^3.1.3",
     "decache": "^3.0.5",
+    "handlebars": "^4.0.5",
+    "hapi": "^13.4.0",
+    "hoek": "^4.0.0",
     "istanbul": "^0.4.2",
     "nodemon": "^1.9.1",
     "pre-commit": "^1.1.2",
     "tap-spec": "^4.1.1",
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "vision": "^4.1.0"
   },
   "pre-commit": [
     "check-coverage"

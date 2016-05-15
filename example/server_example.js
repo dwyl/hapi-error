@@ -1,6 +1,8 @@
 var Hapi = require('hapi');
 var Path = require('path');
 var Boom = require('boom');
+var Hoek = require('hoek');
+
 var server = new Hapi.Server();
 server.connection({ port: process.env.PORT });
 
@@ -36,20 +38,16 @@ server.route([
 ]);
 
 server.register([require('../lib'), require('vision')], function (err) {
-  if (err) {
-    throw err;
-  }
+  Hoek.assert(!err, 'no errors registering plugins');
   server.views({
     engines: {
       html: require('handlebars')
     },
-    path: Path.resolve(__dirname, './../lib')
+    path: Path.resolve(__dirname, './')
   });
 
   server.start(function (err) {
-    if (err) {
-      throw err;
-    }
+    Hoek.assert(!err, 'no errors starting server');
     console.log('Visit:', server.info.uri);
   });
 });
