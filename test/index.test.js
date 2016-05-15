@@ -69,6 +69,18 @@ test("GET /error returns JSON when headers.accept 'application/json'", function 
   });
 });
 
+test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/hoek'
+  };
+  server.inject(options, function(res){
+    t.ok(res.payload.includes('Boom Goes the Dynamite!'), 'Custom Error Messages!');
+    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.end(server.stop(function(){ }));
+  });
+});
+
 test.onFinish(function () {
   server.stop(function(){ }); // stop the hapi server
 })

@@ -33,8 +33,18 @@ server.route([
         reply(Boom.unauthorized('Anauthorised'));
       }
     }
+  },
+  {
+    method: 'GET',
+    path: '/hoek',
+    config: {
+      handler: function (request, reply) {
+        var err = true; // force error using hoek
+        Hoek.assert(!err, 'Boom Goes the Dynamite!');
+        // no reply because Hoek fires an error!
+      }
+    }
   }
-
 ]);
 
 server.register([require('../lib'), require('vision')], function (err) {
