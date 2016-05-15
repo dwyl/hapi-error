@@ -31,6 +31,10 @@ Our objective is to *re-purpose* the `Boom` errors and instead displaya human-fr
 
 ## *How*?
 
+
+
+### Implementation Detail:
+
 When there is an error in the request/response cycle,
 the Hapi `request` Object has *useful* error object we can use.
 
@@ -54,3 +58,37 @@ A typical `Boom` error has the format:
      headers: {} },
   reformat: [Function] }
 ```
+
+The way to *intercept* this error is with a plugin that gets invoked
+*before* the response is returned to the client.
+
+A simple **Error Handler Plugin** *example*:
+
+```js
+/**
+ * register defines our error_handler plugin
+ */
+exports.register = function error_handler (server, options, next) {
+  // onPreResponse intercepts all errors
+  server.ext('onPreResponse', function (request, reply) {
+    var req = request.response;
+    // console.log(request.response);
+    if (req.isBoom) { // reply with a slightly more user-friendly error message
+      return reply('Sorry, something went wrong, please retrace your steps.')
+        .code(req.output.payload.statusCode);
+    }
+    reply.continue();
+  });
+  next(); // continue with other plugins
+};
+
+exports.register.attributes = {
+  pkg: require('../package.json')
+};
+```
+This is the basic setup for you can customise in your Hapi app.
+*However* if you want a ["*turnkey*"](https://en.wikipedia.org/wiki/Turnkey)
+plugin you can use in your project with user-friendly **HTML error pages**
+(*when the client requests `HTML`*) and App/API-friendly **JSON error responses**
+(*when the client asks for `JSON`*) then see the code in `/lib/index.js`
+and usage instructions above!

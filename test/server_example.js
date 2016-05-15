@@ -4,15 +4,27 @@ var Path = require('path');
 var server = new Hapi.Server();
 server.connection({ port: process.env.PORT });
 
-server.route({
+server.route([
+  {
     method: 'GET',
     path: '/',
+    config: {
+      handler: function (request, reply) {
+        reply('hello');
+      }
+    }
+  },
+  {
+    method: 'GET',
+    path: '/500',
     config: {
       handler: function (request, reply) {
         reply(new Error('500'));
       }
     }
-});
+  }
+
+]);
 
 
 server.register([require('../lib'), require('vision')], function (err) {
