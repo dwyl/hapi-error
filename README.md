@@ -2,10 +2,18 @@
 
 Intercept errors in your Hapi web app/api and send a *useful* message to the client.
 
+[![Build Status](https://travis-ci.org/dwyl/hapi-error.svg?branch=master)](https://travis-ci.org/dwyl/hapi-error)
+[![codecov.io](http://codecov.io/github/dwyl/hapi-error/coverage.svg?branch=master)](http://codecov.io/github/dwyl/hapi-error?branch=master)
+[![Code Climate](https://codeclimate.com/github/dwyl/hapi-error/badges/gpa.svg)](https://codeclimate.com/github/dwyl/hapi-error)
+[![Dependency Status](https://david-dm.org/dwyl/hapi-error.svg)](https://david-dm.org/dwyl/hapi-error)
+[![devDependency Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg)](https://david-dm.org/dwyl/hapi-error#info=devDependencies)
+[![HitCount](https://hitt.herokuapp.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
+
+
 ## *Why*?
 
 By default, `Hapi` does not give people *friendly* error messages.
-This plugin/readme will show you how to display consistent, friendly & useful
+This plugin lets your app display consistent, friendly & useful
 error messages in your Hapi apps.
 
 ## *What*?
@@ -14,10 +22,10 @@ Under the hood, Hapi uses
 [`Boom`](https://github.com/dwyl/learn-hapi#error-handling-with-boom)
 to handle errors. These errors are returned as `JSON`. e.g:
 
-If a URL/Endpoint does not exist a `404` is displayed:
+If a URL/Endpoint does not exist a `404` error is returned:
 ![hapi-login-404-error](https://cloud.githubusercontent.com/assets/194400/14770263/06bdc6dc-0a65-11e6-9f9b-80944711a4f1.png)
 
-When a person/client attmpts to access a "*restricted*" endpoint without
+When a person/client attempts to access a "*restricted*" endpoint without
 the proper authentication/authorisation a `401` error is shown:
 
 ![hapi-login-401-error](https://cloud.githubusercontent.com/assets/194400/14770276/57022f20-0a65-11e6-86de-d9b8e456b344.png)
@@ -26,7 +34,13 @@ And if an *unknown* error occurs on the server, a `500` error is *thrown*:
 
 ![localhost-500-error](https://cloud.githubusercontent.com/assets/194400/14770517/98a4b6d6-0a6b-11e6-8448-4b66e3df9a9a.png)
 
-Our objective is to *re-purpose* the `Boom` errors and instead display human-friendly error *page*.
+The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi errors and your custom ones*) and instead display human-friendly error *page*:
+
+
+
+
+> Note: if the client expects a JSON response simply define
+that in the `headers.accept` entry.
 
 
 ## *How*?
@@ -97,6 +111,10 @@ module.exports = server;
 
 > Note: `hapi-error` plugin *expects* you are using [`Vision`](https://github.com/hapijs/vision) (*the standard view rendering library for Hapi apps*)
 which allows you to use Handlebars, Jade, React, etc. for your templates.
+
+Your `error_template.html` (*or `error_template.ext` `error_template.jsx`*) should make use of the 3 variables it will be passed:
+
+
 
 ### Implementation Detail:
 
