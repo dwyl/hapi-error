@@ -50,16 +50,20 @@ server.route([
     method: 'GET',
     path: '/register/{param*}',
     config: {
-      validate: { params: { param: Joi.string().min(4).max(160).alphanum() } },
+      validate: {
+        params: { param: Joi.string().min(4).max(160).alphanum() },
+        // failAction: (req, reply) => {
+        //   console.log('FAIL ACTION ONLY ROUTE')
+        //   return reply(Boom.notFound('hapi-error intercepts this'));
+        // } // show a friendly 404 page
+      },
       handler: function (request, reply) {
         console.log(request.params.param);
-        // apply additional check to the param and throw error if invalid ...
-        if(request.params.param.indexOf('script') > -1) {
+        if(request.params.param.indexOf('script') > -1) { // more validation
           return reply(Boom.notFound('hapi-error intercepts this'));
         } else {
           return reply('Hello ' + request.params.param + '!')
         }
-        // no reply because Hoek fires an error!
       }
     }
   }

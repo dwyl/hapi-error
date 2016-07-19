@@ -18,6 +18,8 @@ error messages in your Hapi apps.
 
 ## *What*?
 
+> Try it: http://hapi-error.herokuapp.com/register/not+va-lid
+
 Under the hood, Hapi uses
 [`Boom`](https://github.com/dwyl/learn-hapi#error-handling-with-boom)
 to handle errors. These errors are returned as `JSON`. e.g:
