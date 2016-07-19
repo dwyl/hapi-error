@@ -55,8 +55,7 @@ server.route([
         console.log(request.params.param);
         // apply additional check to the param and throw error if invalid ...
         if(request.params.param.indexOf('script') > -1) {
-          var err = true; // force error using hoek
-          return Hoek.assert(!err, 'Boom Goes the Dynamite!');
+          return reply(Boom.notFound('hapi-error intercepts this'));
         } else {
           return reply('Hello ' + request.params.param + '!')
         }

@@ -94,6 +94,18 @@ test("GET /register/22%3A%5B%22black%22%5D%7D%22%3E%3C%7%203cript fails Joi vali
   });
 });
 
+test("GET /register/myscript fails additional (CUSTOM) validation", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/register/myscript'
+  };
+  server.inject(options, function(res){
+    t.ok(res.payload.includes('Sorry, that page is not available.'), 'Got Friendly 404 Page');
+    t.equal(res.statusCode, 404, 'Got 404');
+    t.end(server.stop(function(){ }));
+  });
+});
+
 test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
   var options = {
     method: 'GET',
