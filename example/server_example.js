@@ -52,10 +52,6 @@ server.route([
     config: {
       validate: {
         params: { param: Joi.string().min(4).max(160).alphanum() },
-        // failAction: (req, reply) => {
-        //   console.log('FAIL ACTION ONLY ROUTE')
-        //   return reply(Boom.notFound('hapi-error intercepts this'));
-        // } // show a friendly 404 page
       },
       handler: function (request, reply) {
         console.log(request.params.param);
@@ -69,7 +65,7 @@ server.route([
   }
 ]);
 
-server.register([require('../lib'), require('vision')], function (err) {
+server.register([require('../lib/index.js'), require('vision')], function (err) {
   Hoek.assert(!err, 'no errors registering plugins');
   server.views({
     engines: {
