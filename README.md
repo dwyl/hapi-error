@@ -169,7 +169,7 @@ Output:
 ![hoek-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/15276087/58df6fd0-1ad5-11e6-841d-e49495621775.png)
 <br />
 
-## *Redirecting* for Specific Error or `statusCode`
+## *Redirecting* to another endpoint for _specific error_
 
 Sometimes you don't _want_ to show an error page;
 _instead_ you want to re-direct to another page.
@@ -183,13 +183,13 @@ Redirecting to a specific url is _easy_ with `hapi-error`:
 
 ```js
 const redirectConfig = {
-	"401": {
+	"401": { // if the statusCode is 401 redirect to /login page/endpoint
 		"redirect": "/login"
 	}
 }
 server.register([{
     register: require('hapi-error'),
-    options: redirectConfig // pass in your redirect configureation as options
+    options: redirectConfig // pass in your redirect configuration in options
   },
   require('vision')], function (err) {
 
@@ -205,8 +205,7 @@ e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
 #### Are Query Parmeters Preserved?
 
-Yes!
-e.g: if the original url is `/admin?sort=desc`
+***Yes***! e.g: if the original url is `/admin?sort=desc`
 the redirect url will be: `/login?redirect=/admin?sort=desc`
 Such that after the person has logged in they will be re-directed
 back to to `/admin?sort=desc` _as desired_.
