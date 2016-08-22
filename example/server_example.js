@@ -2,6 +2,7 @@ var Hapi = require('hapi');
 var Path = require('path');
 var Boom = require('boom');
 var Hoek = require('hoek');
+var Joi = require('joi');
 
 var server = new Hapi.Server();
 server.connection({ port: process.env.PORT });
@@ -40,8 +41,29 @@ server.route([
     config: {
       handler: function (request, reply) {
         var err = true; // force error using hoek
-        Hoek.assert(!err, 'Boom Goes the Dynamite!');
+        return Hoek.assert(!err, 'Boom Goes the Dynamite!');
         // no reply because Hoek fires an error!
+      }
+    }
+  },
+  {
+    method: 'GET',
+    path: '/register/{param*}',
+    config: {
+      validate: {
+        params: { param: Joi.string().min(4).max(160).alphanum() },
+        // failAction: (req, reply) => {
+        //   console.log('FAIL ACTION ONLY ROUTE')
+        //   return reply(Boom.notFound('hapi-error intercepts this'));
+        // } // show a friendly 404 page
+      },
+      handler: function (request, reply) {
+        console.log(request.params.param);
+        if(request.params.param.indexOf('script') > -1) { // more validation
+          return reply(Boom.notFound('hapi-error intercepts this'));
+        } else {
+          return reply('Hello ' + request.params.param + '!')
+        }
       }
     }
   }

@@ -69,6 +69,43 @@ test("GET /error returns JSON when headers.accept 'application/json'", function 
   });
 });
 
+test("GET /register/username passes validation", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/register/username'
+  };
+  server.inject(options, function(res){
+    t.ok(res.payload.includes('Hello username'), 'Passes validation');
+    t.equal(res.statusCode, 200, 'statusCode 200');
+    t.end(server.stop(function(){ }));
+  });
+});
+
+
+test("GET /register/22%3A%5B%22black%22%5D%7D%22%3E%3C%7%203cript fails Joi validation", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/register/22%3A%5B%22black%22%5D%7D%22%3E%3C%7%203cript%3Ealert%281%29%3C%2fscript%3E'
+  };
+  server.inject(options, function(res){
+    t.ok(res.payload.includes('Sorry'), 'Fails Joi validation');
+    t.equal(res.statusCode, 400, 'intercepted error > 400');
+    t.end(server.stop(function(){ }));
+  });
+});
+
+test("GET /register/myscript fails additional (CUSTOM) validation", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/register/myscript'
+  };
+  server.inject(options, function(res){
+    t.ok(res.payload.includes('Sorry, that page is not available.'), 'Got Friendly 404 Page');
+    t.equal(res.statusCode, 404, 'Got 404');
+    t.end(server.stop(function(){ }));
+  });
+});
+
 test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
   var options = {
     method: 'GET',
@@ -82,5 +119,5 @@ test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
 });
 
 test.onFinish(function () {
-  server.stop(function(){ }); // stop the hapi server
+  server.stop(function(){ }); // stop the hapi server after 500 error
 })
