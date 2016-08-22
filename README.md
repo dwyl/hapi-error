@@ -169,7 +169,51 @@ Output:
 ![hoek-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/15276087/58df6fd0-1ad5-11e6-841d-e49495621775.png)
 <br />
 
+## *Redirecting* for Specific Error or `statusCode`
 
+Sometimes you don't _want_ to show an error page;
+_instead_ you want to re-direct to another page.
+For example, when your route/page requires the person to be authenticated,
+but they have not supplied a valid session/token to view the route/page.
+
+In this situation the default Hapi behaviour is to return a `401` (_unauthorized_) error,
+however this is not very _useful_ to the _person_ using your application.
+
+Redirecting to a specific url is _easy_ with `hapi-error`:
+
+```js
+const redirectConfig = {
+	"401": {
+		"redirect": "/login"
+	}
+}
+server.register([{
+    register: require('hapi-error'),
+    options: redirectConfig // pass in your redirect configureation as options
+  },
+  require('vision')], function (err) {
+
+
+});  
+```
+
+This will `redirect` the client/browser to the `/login` endpoint
+and will append a query parameter with the url the person was _trying_ to visit.
+
+e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
+
+
+#### Are Query Parmeters Preserved?
+
+Yes!
+e.g: if the original url is `/admin?sort=desc`
+the redirect url will be: `/login?redirect=/admin?sort=desc`
+Such that after the person has logged in they will be re-directed
+back to to `/admin?sort=desc` _as desired_.
+
+And it's valid to have multiple question marks in the URL see:
+http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
+So the query is preserved.
 
 <br />
 ---
