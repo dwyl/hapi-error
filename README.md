@@ -6,8 +6,10 @@ Intercept errors in your Hapi web app/api and send a *useful* message to the cli
 [![codecov.io](http://codecov.io/github/dwyl/hapi-error/coverage.svg?branch=master)](http://codecov.io/github/dwyl/hapi-error?branch=master)
 [![Code Climate](https://codeclimate.com/github/dwyl/hapi-error/badges/gpa.svg)](https://codeclimate.com/github/dwyl/hapi-error)
 [![Dependency Status](https://david-dm.org/dwyl/hapi-error.svg)](https://david-dm.org/dwyl/hapi-error)
-[![devDependency Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg)](https://david-dm.org/dwyl/hapi-error#info=devDependencies)
+[![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![HitCount](https://hitt.herokuapp.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
+
+![dilbert-404-error](https://cloud.githubusercontent.com/assets/194400/17856406/53feeee4-6875-11e6-8480-d493906f6aa1.png)
 
 
 ## *Why*?
@@ -166,10 +168,12 @@ Hoek asserts that there is *no error*. Which means that if
 there *is* an error, it will be "*thrown*" with the message you define in the *second argument*.
 
 Output:
+
 ![hoek-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/15276087/58df6fd0-1ad5-11e6-841d-e49495621775.png)
+
 <br />
 
-## *Redirecting* to another endpoint for _specific error_
+## *Redirecting* to another endpoint
 
 Sometimes you don't _want_ to show an error page;
 _instead_ you want to re-direct to another page.
@@ -192,8 +196,7 @@ server.register([{
     options: redirectConfig // pass in your redirect configuration in options
   },
   require('vision')], function (err) {
-
-
+    // etc.
 });  
 ```
 
@@ -202,8 +205,9 @@ and will append a query parameter with the url the person was _trying_ to visit.
 
 e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
+> Redirect Example: [/example/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/example/redirect_server_example.js)
 
-#### Are Query Parmeters Preserved?
+### Are Query Parmeters Preserved?
 
 ***Yes***! e.g: if the original url is `/admin?sort=desc`
 the redirect url will be: `/login?redirect=/admin?sort=desc`
@@ -212,7 +216,8 @@ back to to `/admin?sort=desc` _as desired_.
 
 And it's valid to have multiple question marks in the URL see:
 http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
-So the query is preserved.
+so the query is preserved and can be used to send the person
+to the _exact_ url they requested _after_ they have successfully logged in.
 
 <br />
 ---
