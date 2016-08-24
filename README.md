@@ -45,7 +45,7 @@ The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi
 > ***Note***: *super basic error page example is just what we came up with in a few minutes, you have full control over what your error page looks like, so use your imagination*!
 
 > ***Note***: if the client expects a JSON response simply define
-that in the `headers.accept` and it will still receive the JSON erro messages.
+that in the `headers.accept` and it will still receive the JSON error messages.
 
 
 ## *How*?

@@ -1,23 +1,6 @@
-var Hapi = require('hapi');
-var Path = require('path');
-var Boom = require('boom');
+require('decache')('./server.js'); // ensure we have a fresh module
+var server = require('./server.js');
 var Hoek = require('hoek');
-var Joi = require('joi');
-
-var server = new Hapi.Server();
-server.connection({ port: process.env.PORT });
-
-server.route([
-  {
-    method: 'GET',
-    path: '/admin',
-    config: {
-      handler: function (request, reply) {
-        reply(Boom.unauthorized('Anauthorised'));
-      }
-    }
-  }
-]);
 
 const redirectConfig = {
 	"401": { // if the statusCode is 401 redirect to /login page/endpoint
@@ -30,19 +13,14 @@ server.register([{
     options: redirectConfig // pass in your redirect configuration in options
   },
   require('vision')], function (err) {
-
   Hoek.assert(!err, 'no errors registering plugins');
-  server.views({
-    engines: {
-      html: require('handlebars')
-    },
-    path: Path.resolve(__dirname, './')
-  });
+});
 
-  server.start(function (err) {
-    Hoek.assert(!err, 'no errors starting server');
-    console.log('Visit:', server.info.uri);
-  });
+server.views({
+  engines: {
+    html: require('handlebars')
+  },
+  path: require('path').resolve(__dirname, './')
 });
 
 module.exports = server;
