@@ -5,7 +5,7 @@ var server = require('../example/server_example');
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", function (t) {
 
   require('decache')('../lib/index.js'); // ensure we have a fresh module
-  var redirectserver = require('../example/redirect_server_example');
+  var redirectserver = require('./redirect_server_example');
 
   var options = {
     method: 'GET',

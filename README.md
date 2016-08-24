@@ -205,7 +205,7 @@ and will append a query parameter with the url the person was _trying_ to visit.
 
 e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
-> Redirect Example: [/example/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/example/redirect_server_example.js)
+> Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
 
 ### Are Query Parmeters Preserved?
 

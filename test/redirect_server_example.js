@@ -1,5 +1,5 @@
-require('decache')('./server.js'); // ensure we have a fresh module
-var server = require('./server.js');
+require('decache')('../example/server.js'); // ensure we have a fresh module
+var server = require('../example/server.js');
 var Hoek = require('hoek');
 
 const redirectConfig = {
