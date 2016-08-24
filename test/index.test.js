@@ -13,7 +13,7 @@ test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=wo
   };
   redirectserver.inject(options, function(res){
     // console.log(res);
-    t.equal(res.statusCode, 401, 'statusCode: + ' + res.statusCode + ' (as expected)');
+    t.equal(res.statusCode, 302, 'statusCode: + ' + res.statusCode + ' (as expected)');
     var url = '/login?redirect=/admin?hello=world';
     t.equal(res.headers.location, url, 'Successfully redirected to: ' + url);
     t.end(  redirectserver.stop(function(){ }) );
