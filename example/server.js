@@ -47,6 +47,17 @@ server.route([
   },
   {
     method: 'GET',
+    path: '/hoek-object',
+    config: {
+      handler: function (request, reply) {
+        var err = true; // force error using hoek
+        return Hoek.assert(!err, {email: 'test@test.test', errorMessage: 'Oops - there has been an error'});
+        // no reply because Hoek fires an error!
+      }
+    }
+  },
+  {
+    method: 'GET',
     path: '/register/{param*}',
     config: {
       validate: {

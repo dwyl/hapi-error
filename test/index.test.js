@@ -150,6 +150,19 @@ test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
   });
 });
 
+test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/hoek-object'
+  };
+  server.inject(options, function(res){
+    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
+    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
+    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.end();
+  });
+});
+
 
 test.onFinish(function () {
   server.stop(function(){ }); // stop the hapi server after 500 error
