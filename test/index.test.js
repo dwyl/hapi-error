@@ -4,8 +4,8 @@ var server = require('../example/server_example');
 /************************* REDIRECT TEST ***************************/
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", function (t) {
 
-  // require('decache')('../lib/index.js'); // ensure we have a fresh module
-  var redirectserver = require('../example/redirect_server_example');
+  require('decache')('../lib/index.js'); // ensure we have a fresh module
+  var redirectserver = require('./redirect_server_example');
 
   var options = {
     method: 'GET',
@@ -21,7 +21,8 @@ test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=wo
 });
 
 /************************* Regular TESTS ***************************/
-test("GET / shows a page with links", function (t) {
+
+test("GET / returns 200", function (t) {
   var options = {
     method: 'GET',
     url: '/',
@@ -35,6 +36,18 @@ test("GET / shows a page with links", function (t) {
   });
 });
 
+test("GET /login ", function (t) {
+  var options = {
+    method: 'GET',
+    url: '/login',
+    headers: { accept: 'application/json' }
+  };
+  server.inject(options, function(res) {
+    t.equal(res.statusCode, 200, 'statusCode 200');
+    t.ok(res.payload.includes('please login'), 'Please Login');
+    t.end();
+  });
+});
 
 test("GET /notfound returns 404", function (t) {
   var options = {
@@ -100,7 +113,6 @@ test("GET /register/username passes validation", function (t) {
     t.end(server.stop(function(){ }));
   });
 });
-
 
 test("GET /register/22%3A%5B%22black%22%5D%7D%22%3E%3C%7%203cript fails Joi validation", function (t) {
   var options = {

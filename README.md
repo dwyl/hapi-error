@@ -45,7 +45,7 @@ The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi
 > ***Note***: *super basic error page example is just what we came up with in a few minutes, you have full control over what your error page looks like, so use your imagination*!
 
 > ***Note***: if the client expects a JSON response simply define
-that in the `headers.accept` and it will still receive the JSON erro messages.
+that in the `headers.accept` and it will still receive the JSON error messages.
 
 
 ## *How*?
@@ -205,7 +205,7 @@ and will append a query parameter with the url the person was _trying_ to visit.
 
 e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
-> Redirect Example: [/example/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/example/redirect_server_example.js)
+> Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
 
 ### Are Query Parmeters Preserved?
 
