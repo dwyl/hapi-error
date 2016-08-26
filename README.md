@@ -173,6 +173,17 @@ Output:
 
 <br />
 
+
+## Want to pass some more information/handlebar props to your error_template.html?
+
+All you have to do is pass an object to Hoek with an errorMessage property and any other handlebar properties you want!
+
+For example,
+```js
+Hoek.assert(!error, {errorMessage: 'Oops - there has been an error', email: 'example@example.example', colour:'blue'});
+```
+You will then be able to use {{email}} and {{colour}} in your error_template.html
+
 ## *Redirecting* to another endpoint
 
 Sometimes you don't _want_ to show an error page;
