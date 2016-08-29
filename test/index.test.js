@@ -20,24 +20,6 @@ test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=wo
   });
 });
 
-/************************* ERROR OBJECT TEST ***************************/
-
-test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
-  require('decache')('../lib/index.js'); // ensure we have a fresh module
-  var errorObjectServer = require('./error_object_server_example');
-
-  var options = {
-    method: 'GET',
-    url: '/hoek-object'
-  };
-  errorObjectServer.inject(options, function(res){
-    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
-    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
-    t.equal(res.statusCode, 500, 'statusCode 500');
-    t.end(errorObjectServer.stop(function(){ }) );
-  });
-});
-
 
 /************************* Regular TESTS ***************************/
 
@@ -157,21 +139,24 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
   });
 });
 
+/************************* ERROR OBJECT TEST ***************************/
 
-test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
+test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
+  require('decache')('../lib/index.js'); // ensure we have a fresh module
+  var errorObjectServer = require('./error_object_server_example');
+
   var options = {
     method: 'GET',
-    url: '/hoek'
+    url: '/hoek-object'
   };
-  server.inject(options, function(res){
-    t.ok(res.payload.includes('Boom Goes the Dynamite!'), 'Custom Error Messages!');
+  errorObjectServer.inject(options, function(res){
+    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
+    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
     t.equal(res.statusCode, 500, 'statusCode 500');
-    t.end();
+    t.end(errorObjectServer.stop(function(){ }) );
   });
 });
 
-
 test.onFinish(function () {
-  process.exit();
-  server.stop(function(){}); // stop the hapi server after 500 error
+  server.stop(function(){ }); // stop the hapi server after 500 error
 });
