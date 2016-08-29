@@ -138,6 +138,21 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
   });
 });
 
+test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
+  var errorObjectServer = require('./error_object_server_example');
+
+  var options = {
+    method: 'GET',
+    url: '/hoek-object'
+  };
+  errorObjectServer.inject(options, function(res){
+    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
+    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
+    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.end();
+  });
+});
+
 test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
   var options = {
     method: 'GET',
@@ -149,20 +164,6 @@ test("GET /hoek returns 'Boom Goes the Dynamite!'", function (t) {
     t.end();
   });
 });
-
-test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
-  var options = {
-    method: 'GET',
-    url: '/hoek-object'
-  };
-  server.inject(options, function(res){
-    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
-    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
-    t.equal(res.statusCode, 500, 'statusCode 500');
-    t.end();
-  });
-});
-
 
 
 test.onFinish(function () {
