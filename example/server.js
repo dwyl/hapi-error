@@ -53,7 +53,6 @@ server.route([
         params: { param: Joi.string().min(4).max(160).alphanum() },
       },
       handler: function (request, reply) {
-        console.log(request.params.param);
         if(request.params.param.indexOf('script') > -1) { // more validation
           return reply(Boom.notFound('hapi-error intercepts this'));
         } else {
@@ -72,10 +71,5 @@ server.route([
     }
   }
 ]);
-
-server.start(function (err) {
-  Hoek.assert(!err, 'no errors starting server');
-  console.log('Visit:', server.info.uri);
-});
 
 module.exports = server;

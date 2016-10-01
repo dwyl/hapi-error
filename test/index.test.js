@@ -98,7 +98,7 @@ test("GET /error returns JSON when headers.accept 'application/json'", function 
   server.inject(options, function(res){
     // console.log(res.payload, typeof res.payload);
     t.ok(res.payload.includes('Internal Server Error'), '500 Server Error');
-    t.equal(res.statusCode, 500);
+    t.equal(res.statusCode, 500, 'Got statusCode 500 (as expected)');
     t.end();
   });
 });
@@ -143,7 +143,8 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
 
 test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
   require('decache')('../lib/index.js'); // ensure we have a fresh module
-  var errorObjectServer = require('./error_object_server_example');
+  // var errorObjectServer = require('./error_object_server_example');
+  var errorObjectServer = require('../example/server_example');
 
   var options = {
     method: 'GET',
@@ -152,7 +153,7 @@ test("GET /hoek-object returns message and extra email handlebar prop", function
   errorObjectServer.inject(options, function(res){
     t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
     t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
-    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.equal(res.statusCode, 500, 'statusCode 500 (hoek-object)');
     t.end(errorObjectServer.stop(function(){ }) );
   });
 });
