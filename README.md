@@ -132,10 +132,11 @@ Your `error_template.html` (*or `error_template.ext` `error_template.tag` `error
 
 *Want more...?* [*ask*!](https://github.com/dwyl/hapi-error/issues)
 
-## *Custom* Error Messages using `Hoek.assert`
+## *Custom* Error Messages using `request.handleError`
 
-[`Hoek`](https://github.com/hapijs/hoek/blob/master/API.md#assertcondition-message) (*a utility library extensively used internally by Hapi*) has an `assert` method which allows
-you to "*throw*" errors one line in your code.
+When you `register` the `hapi-error` plugin a _useful_ `handleError` method
+becomes available in every request handler which allows you to (_safely_)
+"handle" any "*thrown*" errors using just one line of code.
 
 Consider the following Hapi route handler code that is fetching data from a generic Database:
 
@@ -157,35 +158,41 @@ var Hoek = require('hoek'); // require Hoek somewhere in your code
 
 function handler (request, reply) {
   db.get('yourkey', function (err, data) { // much simpler, right?
-    Hoek.assert(!err, 'A database error occurred');
+    request.handleError(!err, 'A database error occurred');
     return reply('amazing_app_view', {data: data});
   }); // this has *exactly* the same effect in much less code.
 }
 ```
 #### Explanation:
 
+Under the hood, `request.handleError` is using `Hoek.assert` which
+will `assert` that there is ***no error*** e.g:
+
 `Hoek.assert(!err, 'A database error occurred');`
-Hoek asserts that there is *no error*. Which means that if
-there *is* an error, it will be "*thrown*" with the message you define in the *second argument*.
+
+Which means that if there *is* an error, it will be "*thrown*"
+with the message you define in the *second argument*.
 
 Output:
 
-![hoek-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/15276087/58df6fd0-1ad5-11e6-841d-e49495621775.png)
+![hapi-error-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/19078231/590d2d80-8a47-11e6-82e2-742d193b43b9.png)
 
 <br />
 
 
-## Want to pass some more information/handlebar props to your error_template.html?
+### Want to pass some more/custom data your error_template.html?
 
-All you have to do is pass an object to Hoek with an errorMessage property and any other handlebar properties you want!
+All you have to do is pass an object to `request.handleError` with an
+errorMessage property and any other template properties you want!
 
 For example,
 ```js
-Hoek.assert(!error, {errorMessage: 'Oops - there has been an error', email: 'example@example.example', colour:'blue'});
+request.handleError(!error, {errorMessage: 'Oops - there has been an error',
+email: 'example@example.example', colour:'blue'});
 ```
 You will then be able to use {{email}} and {{colour}} in your error_template.html
 
-## *Redirecting* to another endpoint
+### *Redirecting* to another endpoint
 
 Sometimes you don't _want_ to show an error page;
 _instead_ you want to re-direct to another page.
@@ -262,6 +269,9 @@ A typical `Boom` error has the format:
 
 The way to *intercept* this error is with a plugin that gets invoked
 *before* the response is returned to the client.
+
+See: [lib/index.js](https://github.com/dwyl/hapi-error/blob/master/lib/index.js)
+for details on how to implement a plugin.
 
 A simple **Error Handler Plugin** *example*:
 
