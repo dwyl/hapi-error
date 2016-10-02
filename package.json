@@ -30,7 +30,9 @@
     "url": "https://github.com/dwyl/hapi-error/issues"
   },
   "homepage": "https://github.com/dwyl/hapi-error#readme",
-  "dependencies": {},
+  "dependencies": {
+    "hoek": "^4.0.2"
+  },
   "devDependencies": {
     "boom": "^4.0.0",
     "decache": "^4.1.0",
@@ -40,7 +42,6 @@
     "goodparts": "^1.1.0",
     "handlebars": "^4.0.5",
     "hapi": "^15.0.2",
-    "hoek": "^4.0.2",
     "istanbul": "^0.4.5",
     "joi": "^9.0.4",
     "nodemon": "^1.10.2",
