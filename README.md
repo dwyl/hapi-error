@@ -271,7 +271,9 @@ The way to *intercept* this error is with a plugin that gets invoked
 *before* the response is returned to the client.
 
 See: [lib/index.js](https://github.com/dwyl/hapi-error/blob/master/lib/index.js)
-for details on how to implement a plugin.
+for details on how the plugin is implemented.
+
+If you have _any_ questions, just [*ask*!](https://github.com/dwyl/hapi-error/issues)
 
 
 ## Background Reading & Research
