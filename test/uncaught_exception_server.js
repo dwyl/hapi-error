@@ -48,9 +48,4 @@ server.views({
   path: require('path').resolve(__dirname, '../example')
 });
 
-// server.start(function (err) {
-//   Hoek.assert(!err, 'no errors starting server');
-//   server.log('info', 'Visit: ' + server.info.uri);
-// });
-
 module.exports = server;
