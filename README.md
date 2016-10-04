@@ -179,6 +179,25 @@ Output:
 
 <br />
 
+### Need to call `handleError` outside of the context of the `request` ?
+
+Sometimes we create handlers that perform a task outside of the context of 
+a route/handler (_e.g accessing a database or API_) in this context 
+we still want to use `handleError` to simplify error handling.
+
+This is easy with `hapi-error`, here's an example:
+
+```js
+var handleError = require('hapi-error').handleError;
+
+db.get(key, function (error, result) {
+  handleError(error, 'Error retrieving ' + key + ' from DB :-( ');
+  callback(err, result);
+}); 
+
+
+```
+
 
 ### Want to pass some more/custom data your error_template.html?
 
