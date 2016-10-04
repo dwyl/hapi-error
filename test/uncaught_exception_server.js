@@ -1,5 +1,8 @@
-var server = require('./server.js');
-var Hoek   = require('hoek');
+var Hapi = require('hapi');
+var Hoek = require('hoek');
+
+var server = new Hapi.Server();
+server.connection();
 
 var goodOptions = {
   ops: {
@@ -16,25 +19,33 @@ var goodOptions = {
   }
 };
 
-server.register(
-  [
-    require('../lib/index.js'),
-    require('vision')
-  ],
-  function (err) {
+server.register([
+  {
+    register: require('good'),
+    options: goodOptions,
+  },
+  {
+    register: require('../lib/index.js') // hapi-error
+  },
+  require('vision')], function (err) {
   Hoek.assert(!err, 'no errors registering plugins');
 });
+
+server.route([
+  {
+    method: 'GET',
+    path: '/throw',
+    handler: function (request, reply) {
+      throw new Error('AAAAA!');
+    }
+  }
+]);
 
 server.views({
   engines: {
     html: require('handlebars')
   },
-  path: require('path').resolve(__dirname, './')
-});
-
-server.start(function (err) {
-  Hoek.assert(!err, 'no errors starting server');
-  server.log('info', 'Visit: ' + server.info.uri);
+  path: require('path').resolve(__dirname, '../example')
 });
 
 module.exports = server;
