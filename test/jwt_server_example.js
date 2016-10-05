@@ -30,10 +30,10 @@ function throwerror (request, reply) {
 };
 
 server.register([ // uncomment this if you need to debug
-    {
-      register: require('good'),
-      options: require('./good_options'),
-    },
+    // {
+    //   register: require('good'),
+    //   options: require('./good_options'),
+    // },
     require('../lib/index.js'),
     require('vision'),
     require('hapi-auth-jwt2')
