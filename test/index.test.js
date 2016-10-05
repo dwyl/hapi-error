@@ -157,7 +157,7 @@ test("GET /error should display an error page containing the current person's em
 
   require('decache')('../lib/index.js'); // ensure we have a fresh module
   var jwtserver = require('./jwt_server_example');
-  var person = { id: 123, email: 'hai@mail.me' }
+  var person = { id: 123, email: 'charlie@mail.me' }
   var token = JWT.sign(person, process.env.JWT_SECRET);
 
   var options = {
@@ -168,7 +168,9 @@ test("GET /error should display an error page containing the current person's em
   jwtserver.inject(options, function(res) {
     // console.log(res);
     t.equal(res.statusCode, 500, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    // console.log(res.payload);
+    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
+    console.log(res.payload);
+    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
     t.equal(res.payload.includes(person.email), true, 'Email address displayed');
     t.end( jwtserver.stop(function(){ }) );
   });
