@@ -165,30 +165,12 @@ test("GET /error should display an error page containing the current person's em
     url: '/throwerror',
     headers: { authorization: "Bearer " + token }
   };
-  jwtserver.inject(options, function(res){
+  jwtserver.inject(options, function(res) {
     // console.log(res);
     t.equal(res.statusCode, 500, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    t.ok(res.payload.includes(person.email, 'Email address displayed'));
+    // console.log(res.payload);
+    t.equal(res.payload.includes(person.email), true, 'Email address displayed');
     t.end( jwtserver.stop(function(){ }) );
-  });
-});
-
-/************************* ERROR OBJECT TEST ***************************/
-
-test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
-  require('decache')('../lib/index.js'); // ensure we have a fresh module
-  // var errorObjectServer = require('./error_object_server_example');
-  var errorObjectServer = require('../example/server_example');
-
-  var options = {
-    method: 'GET',
-    url: '/hoek-object'
-  };
-  errorObjectServer.inject(options, function(res){
-    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
-    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
-    t.equal(res.statusCode, 500, 'statusCode 500 (hoek-object)');
-    t.end(errorObjectServer.stop(function(){ }) );
   });
 });
 

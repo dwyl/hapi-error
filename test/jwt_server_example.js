@@ -22,9 +22,6 @@ var validate = function (decoded, request, callback) {
 };
 
 function throwerror (request, reply) {
-  // console.log(' - - - - - - - - - - - - - - - - ');
-  // console.log(request.auth)
-  // console.log(' - - - - - - - - - - - - - - - - ');
   var err = true; // deliberately throw an error for https://git.io/vPZ4A
   return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
 };
@@ -41,16 +38,16 @@ server.register([ // uncomment this if you need to debug
   
   assert(!err);
 
-  server.auth.strategy('jwt', 'jwt', {
-    key: process.env.JWT_SECRET,
-    validateFunc: validate
-  });
-
   server.views({
     engines: {
       html: require('handlebars')
     },
     path: path.resolve(__dirname, '../example')
+  });
+
+  server.auth.strategy('jwt', 'jwt', {
+    key: process.env.JWT_SECRET,
+    validateFunc: validate
   });
 
   server.route([
@@ -60,7 +57,6 @@ server.register([ // uncomment this if you need to debug
 });
 
 server.start(function (err) {
-  console.log(err);
   assert(!err);
   server.log('info', 'Visit: ' + server.info.uri);
 });
