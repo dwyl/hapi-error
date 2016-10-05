@@ -168,9 +168,9 @@ test("GET /error should display an error page containing the current person's em
   jwtserver.inject(options, function(res) {
     // console.log(res);
     t.equal(res.statusCode, 500, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
-    console.log(res.payload);
-    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
+    // console.log(res.payload);
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
     t.equal(res.payload.includes(person.email), true, 'Email address displayed');
     t.end( jwtserver.stop(function(){ }) );
   });
