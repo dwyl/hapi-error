@@ -4,7 +4,7 @@ var path = require('path');
 var assert = require('assert');
 var server = new Hapi.Server({ debug: false });
 
-server.connection({port: 3001});
+server.connection({port: 8765 });
 
 var db = {
   '123': { allowed: true,  name: 'Charlie', email: 'charlie@mail.co' },
