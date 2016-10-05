@@ -1,5 +1,6 @@
 var test = require('tape');
 var server = require('../example/server_example');
+var JWT    = require('jsonwebtoken');
 
 /************************* handleError method test ***************************/
 
@@ -12,6 +13,7 @@ test("handleError no error is thrown when error = null", function (t) {
 });
 
 /************************* REDIRECT TEST ***************************/
+
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", function (t) {
 
   require('decache')('../lib/index.js'); // ensure we have a fresh module
@@ -146,6 +148,28 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
     t.ok(res.payload.includes('Sorry, that page is not available.'), 'Got Friendly 404 Page');
     t.equal(res.statusCode, 404, 'Got 404');
     t.end(server.stop(function(){ }));
+  });
+});
+
+/************************* 'email' Available in Error Template/View ***************************/
+
+test("GET /error should display an error page containing the current person's email address", function (t) {
+
+  require('decache')('../lib/index.js'); // ensure we have a fresh module
+  var jwtserver = require('./jwt_server_example');
+  var person = { id: 123, email: 'hai@mail.me' }
+  var token = JWT.sign(person, process.env.JWT_SECRET);
+
+  var options = {
+    method: 'GET',
+    url: '/throwerror',
+    headers: { authorization: "Bearer " + token }
+  };
+  jwtserver.inject(options, function(res){
+    // console.log(res);
+    t.equal(res.statusCode, 500, 'statusCode: + ' + res.statusCode + ' (as expected)');
+    t.ok(res.payload.includes(person.email, 'Email address displayed'));
+    t.end( jwtserver.stop(function(){ }) );
   });
 });
 

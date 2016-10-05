@@ -1,4 +1,4 @@
-// process.env.JWT_SECRET = 'supersecret'; // github.com/dwyl/hapi-auth-jwt2#generating-your-secret-key
+process.env.JWT_SECRET = 'supersecret'; // github.com/dwyl/hapi-auth-jwt2#generating-your-secret-key
 var Hapi = require('hapi');
 var path = require('path');
 var assert = require('assert');
@@ -21,20 +21,19 @@ var validate = function (decoded, request, callback) {
   }
 };
 
-var home = function(request, reply) {
-  return reply('Hai!');
+function throwerror (request, reply) {
+  // console.log(' - - - - - - - - - - - - - - - - ');
+  // console.log(request.auth)
+  // console.log(' - - - - - - - - - - - - - - - - ');
+  var err = true; // deliberately throw an error for https://git.io/vPZ4A
+  return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
 };
 
-var privado = function(request, reply) {
-  console.log(request.auth.credentials)
-  return reply('worked');
-};
-
-server.register([
-    {
-      register: require('good'),
-      options: require('./good_options'),
-    },
+server.register([ // uncomment this if you need to debug
+    // {
+    //   register: require('good'),
+    //   options: require('./good_options'),
+    // },
     require('../lib/index.js'),
     require('vision'),
     require('hapi-auth-jwt2')
@@ -55,9 +54,7 @@ server.register([
   });
 
   server.route([
-    { method: 'GET',  path: '/notoken', handler: home, config: { auth: false } },
-    { method: 'GET',  path: '/admin', handler: home, config: { auth: 'jwt' } },
-    { method: 'POST', path: '/privado', handler: privado, config: { auth: 'jwt' } },
+    { method: 'GET', path: '/throwerror', handler: throwerror, config: { auth: 'jwt' } },
   ]);
 
 });
