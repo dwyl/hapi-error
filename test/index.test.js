@@ -151,7 +151,7 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
   });
 });
 
-/************************* 'email' Available in Error Template/View ***************************/
+/************************* 'email' prop Available in Error Template/View ***************/
 
 test("GET /error should display an error page containing the current person's email address", function (t) {
 

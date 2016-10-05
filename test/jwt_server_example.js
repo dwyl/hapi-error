@@ -4,7 +4,7 @@ var path = require('path');
 var assert = require('assert');
 var server = new Hapi.Server({ debug: false });
 
-server.connection({port: 3000});
+server.connection({port: 3001});
 
 var db = {
   '123': { allowed: true,  name: 'Charlie', email: 'charlie@mail.co' },
@@ -30,10 +30,10 @@ function throwerror (request, reply) {
 };
 
 server.register([ // uncomment this if you need to debug
-    // {
-    //   register: require('good'),
-    //   options: require('./good_options'),
-    // },
+    {
+      register: require('good'),
+      options: require('./good_options'),
+    },
     require('../lib/index.js'),
     require('vision'),
     require('hapi-auth-jwt2')
@@ -60,6 +60,7 @@ server.register([ // uncomment this if you need to debug
 });
 
 server.start(function (err) {
+  console.log(err);
   assert(!err);
   server.log('info', 'Visit: ' + server.info.uri);
 });
