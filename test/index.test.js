@@ -1,5 +1,6 @@
 var test = require('tape');
 var server = require('../example/server_example');
+var jwtserver = require('./jwt_server_example');
 var JWT    = require('jsonwebtoken');
 
 /************************* handleError method test ***************************/
@@ -156,7 +157,6 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
 test("GET /error should display an error page containing the current person's email address", function (t) {
 
   require('decache')('../lib/index.js'); // ensure we have a fresh module
-  var jwtserver = require('./jwt_server_example');
   var person = { id: 123, email: 'charlie@mail.me' }
   var token = JWT.sign(person, process.env.JWT_SECRET);
 
