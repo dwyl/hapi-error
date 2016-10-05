@@ -21,17 +21,12 @@ var validate = function (decoded, request, callback) {
   }
 };
 
-function throwerror (request, reply) {
-  var err = true; // deliberately throw an error for https://git.io/vPZ4A
-  return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
-};
-
 server.register([ // uncomment this if you need to debug
     // {
     //   register: require('good'),
     //   options: require('./good_options'),
     // },
-    require('../lib/index.js'),
+    require('../lib/index.js'), 
     require('vision'),
     require('hapi-auth-jwt2')
   ], function (err) {
@@ -51,14 +46,18 @@ server.register([ // uncomment this if you need to debug
   });
 
   server.route([
-    { method: 'GET', path: '/throwerror', handler: throwerror, config: { auth: 'jwt' } },
-  ]);
+    { method: 'GET', path: '/throwerror', config: { auth: 'jwt' }, 
+      handler: function throwerror (request, reply) {
+        var err = true; // deliberately throw an error for https://git.io/vPZ4A
+        return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
+      } 
+  }]);
 
 });
 
-server.start(function (err) {
-  assert(!err);
-  server.log('info', 'Visit: ' + server.info.uri);
-});
+// server.start(function (err) {
+//   assert(!err);
+//   server.log('info', 'Visit: ' + server.info.uri);
+// });
 
 module.exports = server;
