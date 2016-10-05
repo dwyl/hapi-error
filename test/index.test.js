@@ -1,6 +1,16 @@
 var test = require('tape');
 var server = require('../example/server_example');
 
+/************************* handleError method test ***************************/
+
+var handleError = require('../lib').handleError;
+
+test("handleError no error is thrown when error = null", function (t) {
+  var error = null;
+  t.equal(handleError(error), undefined, 'No error thrown');
+  t.end();
+});
+
 /************************* REDIRECT TEST ***************************/
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", function (t) {
 
