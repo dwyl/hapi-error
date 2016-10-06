@@ -4,25 +4,10 @@ var Hoek = require('hoek');
 var server = new Hapi.Server();
 server.connection();
 
-var goodOptions = {
-  ops: {
-    interval: 30000 // reporting interval (30 seconds)
-  },
-  reporters: {
-    myConsoleReporter: [{
-    module: 'good-squeeze', // https://github.com/hapijs/good-squeeze
-    name: 'Squeeze',
-    args: [{ log: '*', error: '*', response: '*', request: '*', ops: '*' }]
-    }, {
-      module: 'good-console'
-    }, 'stdout']
-  }
-};
-
 server.register([
   {
     register: require('good'),
-    options: goodOptions,
+    options: require('./good_options'),
   },
   {
     register: require('../lib/index.js') // hapi-error

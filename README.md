@@ -245,6 +245,7 @@ e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
 > Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
 
+
 ### Are Query Parmeters Preserved?
 
 ***Yes***! e.g: if the original url is `/admin?sort=desc`
@@ -256,6 +257,55 @@ And it's valid to have multiple question marks in the URL see:
 http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
 so the query is preserved and can be used to send the person
 to the _exact_ url they requested _after_ they have successfully logged in.
+
+### Debugging 
+
+If you need more debugging in your error template, `hapi-error` exposes _several_
+useful properties which you can use.
+
+```js
+{
+  "method":"GET",
+  "url":"/your-endpoint",
+  "headers":{
+    "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJlbWFpbCI6ImhhaUBtYWlsLm1lIiwiaWF0IjoxNDc1Njc0MDQ2fQ.Xc6nCPQW4ZSf9jnIIs8wYsM4bGtvpe8peAxp6rq4y0g",
+    "user-agent":"shot",
+    "host":"http://yourserver:3001"
+  },
+  "info":{
+    "received":1475674046045,
+    "responded":0,
+    "remoteAddress":"127.0.0.1",
+    "remotePort":"",
+    "referrer":"",
+    "host":"http://yourserver:3001",
+    "acceptEncoding":"identity",
+    "hostname":"http://yourserver:3001"
+  },
+  "auth":{
+    "isAuthenticated":true,
+    "credentials":{
+       "id":123,
+       "email":"hai@mail.me",
+       "iat":1475674046
+    },
+    "strategy":"jwt",
+    "mode":"required",
+    "error":null,
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJlbWFpbCI6ImhhaUBtYWlsLm1lIiwiaWF0IjoxNDc1Njc0MDQ2fQ.Xc6nCPQW4ZSf9jnIIs8wYsM4bGtvpe8peAxp6rq4y0g"
+  },
+  "email":"hai@mail.me",
+  "payload":null,
+  "response":{
+    "statusCode":500,
+    "error":"Internal Server Error",
+    "message":"An internal server error occurred"
+  }
+}
+```
+
+All the properties which are logged by `hapi-error` are available in 
+your error template.
 
 <br />
 ---

@@ -1,5 +1,7 @@
 var test = require('tape');
 var server = require('../example/server_example');
+var jwtserver = require('./jwt_server_example');
+var JWT    = require('jsonwebtoken');
 
 /************************* handleError method test ***************************/
 
@@ -12,6 +14,7 @@ test("handleError no error is thrown when error = null", function (t) {
 });
 
 /************************* REDIRECT TEST ***************************/
+
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", function (t) {
 
   require('decache')('../lib/index.js'); // ensure we have a fresh module
@@ -149,22 +152,27 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
   });
 });
 
-/************************* ERROR OBJECT TEST ***************************/
+/************************* 'email' prop Available in Error Template/View ***************/
 
-test("GET /hoek-object returns message and extra email handlebar prop", function (t) {
+test("GET /error should display an error page containing the current person's email address", function (t) {
+
   require('decache')('../lib/index.js'); // ensure we have a fresh module
-  // var errorObjectServer = require('./error_object_server_example');
-  var errorObjectServer = require('../example/server_example');
+  var person = { id: 123, email: 'charlie@mail.me' }
+  var token = JWT.sign(person, process.env.JWT_SECRET);
 
   var options = {
     method: 'GET',
-    url: '/hoek-object'
+    url: '/throwerror',
+    headers: { authorization: "Bearer " + token }
   };
-  errorObjectServer.inject(options, function(res){
-    t.ok(res.payload.includes('Oops - there has been an error'), 'Correct Custom Error Messages!');
-    t.ok(res.payload.includes('test@test.test', 'Extra email handlebar prop displayed'));
-    t.equal(res.statusCode, 500, 'statusCode 500 (hoek-object)');
-    t.end(errorObjectServer.stop(function(){ }) );
+  jwtserver.inject(options, function(res) {
+    // console.log(res);
+    t.equal(res.statusCode, 500, 'statusCode: + ' + res.statusCode + ' (as expected)');
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
+    // console.log(res.payload);
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - ');
+    t.equal(res.payload.includes(person.email), true, 'Email address displayed');
+    t.end( jwtserver.stop(function(){ }) );
   });
 });
 
