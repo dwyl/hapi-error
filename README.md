@@ -179,10 +179,12 @@ Output:
 
 <br />
 
-### Need to call `handleError` outside of the context of the `request` ?
+### `handleError` _everywhere_
 
-Sometimes we create handlers that perform a task outside of the context of 
-a route/handler (_e.g accessing a database or API_) in this context 
+> Need to call `handleError` _outside_ of the context of the `request` ?
+
+Sometimes we create handlers that perform a task _outside_ of the context of
+a route/handler (_e.g accessing a database or API_) in this context
 we still want to use `handleError` to simplify error handling.
 
 This is easy with `hapi-error`, here's an example:
@@ -192,31 +194,45 @@ var handleError = require('hapi-error').handleError;
 
 db.get(key, function (error, result) {
   handleError(error, 'Error retrieving ' + key + ' from DB :-( ');
-  callback(err, result);
-}); 
+  return callback(err, result);
+});
+```
+or in a file operation (_uploading a file to AWS S3_):
 
+```js
+var handleError = require('hapi-error').handleError;
 
+s3Bucket.upload(params, function (err, data) {
+  handleError(error, 'Error retrieving ' + key + ' from DB :-( ');
+  return callback(err, result);
+}
 ```
 
+Provided the `handleError` is called from a function/helper
+that is being _run_ by a Hapi server any errors will be _intercepted_
+and _logged_ and displayed (_nicely_) to people using your app.
 
-### Want to pass some more/custom data your error_template.html?
+### _custom_ data in error pages
+
+> Want/need to pass some more/custom data to display in your `error_template` view?
 
 All you have to do is pass an object to `request.handleError` with an
 errorMessage property and any other template properties you want!
 
-For example,
+For example:  
 ```js
 request.handleError(!error, {errorMessage: 'Oops - there has been an error',
-email: 'example@example.example', colour:'blue'});
+email: 'example@mail.co', color:'blue'});
 ```
-You will then be able to use {{email}} and {{colour}} in your error_template.html
+You will then be able to use {{email}} and {{colur}} in your `error_template.html`
 
 ### *Redirecting* to another endpoint
 
 Sometimes you don't _want_ to show an error page;
 _instead_ you want to re-direct to another page.
-For example, when your route/page requires the person to be authenticated,
-but they have not supplied a valid session/token to view the route/page.
+For example, when your route/page requires the person
+to be authenticated (_logged in_), but they have
+not supplied a valid session/token to view the route/page.
 
 In this situation the default Hapi behaviour is to return a `401` (_unauthorized_) error,
 however this is not very _useful_ to the _person_ using your application.
@@ -245,20 +261,17 @@ e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
 > Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
 
+### logging
 
-### Are Query Parmeters Preserved?
+As with _all_ hapi apps/APIs the recommended approach to logging
+is to use [`good`](https://github.com/dwyl/learn-hapi#logging-with-good)
 
-***Yes***! e.g: if the original url is `/admin?sort=desc`
-the redirect url will be: `/login?redirect=/admin?sort=desc`
-Such that after the person has logged in they will be re-directed
-back to to `/admin?sort=desc` _as desired_.
+`hapi-error` logs all errors using `server.log` (_the standard way of logging in Hapi apps_) so once you enable `good` in your app you will _see_ any errors in your logs.
 
-And it's valid to have multiple question marks in the URL see:
-http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
-so the query is preserved and can be used to send the person
-to the _exact_ url they requested _after_ they have successfully logged in.
+e.g:  
+![hapi-error-log](https://cloud.githubusercontent.com/assets/194400/19013932/f2471060-87d6-11e6-980a-d7210c9fea7e.png)
 
-### Debugging 
+### Debugging
 
 If you need more debugging in your error template, `hapi-error` exposes _several_
 useful properties which you can use.
@@ -304,8 +317,22 @@ useful properties which you can use.
 }
 ```
 
-All the properties which are logged by `hapi-error` are available in 
+All the properties which are logged by `hapi-error` are available in
 your error template.
+
+### Are Query Parmeters Preserved?
+
+***Yes***! e.g: if the original url is `/admin?sort=desc`
+the redirect url will be: `/login?redirect=/admin?sort=desc`
+Such that after the person has logged in they will be re-directed
+back to to `/admin?sort=desc` _as desired_.
+
+And it's valid to have multiple question marks in the URL see:
+http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
+so the query is preserved and can be used to send the person
+to the _exact_ url they requested _after_ they have successfully logged in.
+
+
 
 <br />
 ---
