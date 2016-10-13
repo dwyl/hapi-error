@@ -1,6 +1,8 @@
 var test = require('tape');
 var server = require('../example/server_example');
 var jwtserver = require('./jwt_server_example');
+var redirectserver = require('./redirect_server_example');
+var messageServer = require('./message_server_example');
 var JWT    = require('jsonwebtoken');
 
 /************************* handleError method test ***************************/
@@ -16,9 +18,7 @@ test("handleError no error is thrown when error = null", function (t) {
 /************************* REDIRECT TEST ***************************/
 
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", function (t) {
-
   require('decache')('../lib/index.js'); // ensure we have a fresh module
-  var redirectserver = require('./redirect_server_example');
 
   var options = {
     method: 'GET',
@@ -33,6 +33,37 @@ test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=wo
   });
 });
 
+/** *********************** Message TEST ***************************/
+
+test('example of overriding the', function (t) {
+  var options = {
+    method: 'GET',
+    url: '/notfound'
+  };
+
+  messageServer.inject(options, function (res) {
+    t.ok(res.payload.includes('robots in disguise'), '404 gets transformed');
+    t.equal(res.statusCode, 404, 'statusCode give back ok');
+    t.end();
+  });
+});
+
+test('example of adding a new message transform which uses req', function (t) {
+  var options = {
+    method: 'GET',
+    url: '/error'
+  };
+
+  messageServer.inject(options, function (res) {
+    t.ok(res.payload.includes('User agent: shot'), 'Internal Server Error');
+    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.end();
+  });
+});
+
+test('close messageServer', function (t) {
+  messageServer.stop(t.end);
+});
 
 /************************* Regular TESTS ***************************/
 
@@ -155,7 +186,6 @@ test("GET /register/myscript fails additional (CUSTOM) validation", function (t)
 /************************* 'email' prop Available in Error Template/View ***************/
 
 test("GET /error should display an error page containing the current person's email address", function (t) {
-
   require('decache')('../lib/index.js'); // ensure we have a fresh module
   var person = { id: 123, email: 'charlie@mail.me' }
   var token = JWT.sign(person, process.env.JWT_SECRET);
