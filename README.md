@@ -130,23 +130,23 @@ Your `error_template.html` (*or `error_template.ext` `error_template.tag` `error
 
 ### 4. *Optional* Add config object to transform messages or redirect for certain status codes
 
-Each status code can be given two properties `messageTransform` and `redirect`.
+Each status code can be given two properties `message` and `redirect`.
 
 The default config is:
 ```
-var mergedConfig = {
-  401: { messageTransform: 'Please Login to view that page' },
-  400: { messageTransform: 'Sorry, we do not have that page.' },
-  404: { messageTransform: 'Sorry, that page is not available.' }
+{
+  401: { message: 'Please Login to view that page' },
+  400: { message: 'Sorry, we do not have that page.' },
+  404: { message: 'Sorry, that page is not available.' }
 };
 ```
 We want to provide useful error messages that are pleasant for the user. If you think there are better defaults for messages or other codes then do let us know via [issue](https://github.com/dwyl/hapi-error/issues).
 
 Any of the can be overwritten and new status codes can be added.
 
-#### `messageTransform` *Transform* the error message
+#### `message` Parse/replace the error message
 
-This parameter can the form `function(message, request)` or just simply a `'string'`.
+This parameter can be of the form `function(message, request)` or just simply a `'string'` to replace the message.
 
 An example of a use case would be handling errors form joi validation.
 
@@ -154,7 +154,7 @@ Or erroring in different languages.
 ```js
 const config = {
   "401": {
-    "transformMessage": function(msg, req) {
+    "message": function(msg, req) {
       var lang = findLang(req);
 
       return translate(lang, message);
@@ -162,6 +162,8 @@ const config = {
   }
 };
 ```
+
+Or providing nice error messages like in the default config above.
 
 #### `redirect` *Redirecting* to another endpoint
 

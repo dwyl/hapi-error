@@ -9,12 +9,12 @@ var HapiError = require('../lib/index.js');
 
 var config = {
   404: { // if the statusCode is 401 redirect to /login page/endpoint
-    messageTransform: function () {
+    message: function () {
       return 'robots in disguise';
     }
   },
   500: {
-    messageTransform: function (msg, request) {
+    message: function (msg, request) {
       return 'User agent: ' + request.headers['user-agent'];
     }
   }
