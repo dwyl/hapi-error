@@ -128,7 +128,80 @@ Your `error_template.html` (*or `error_template.ext` `error_template.tag` `error
 
 > for an example see: [`/example/error_template.html`](https://github.com/dwyl/hapi-error/blob/master/example/error_template.html)
 
-*That's it*!
+### 4. *Optional* Add config object to transform messages or redirect for certain status codes
+
+Each status code can be given two properties `message` and `redirect`.
+
+The default config is:
+```
+{
+  401: { message: 'Please Login to view that page' },
+  400: { message: 'Sorry, we do not have that page.' },
+  404: { message: 'Sorry, that page is not available.' }
+};
+```
+We want to provide useful error messages that are pleasant for the user. If you think there are better defaults for messages or other codes then do let us know via [issue](https://github.com/dwyl/hapi-error/issues).
+
+Any of the can be overwritten and new status codes can be added.
+
+#### `message` Parse/replace the error message
+
+This parameter can be of the form `function(message, request)` or just simply a `'string'` to replace the message.
+
+An example of a use case would be handling errors form joi validation.
+
+Or erroring in different languages.
+```js
+const config = {
+  "401": {
+    "message": function(msg, req) {
+      var lang = findLang(req);
+
+      return translate(lang, message);
+    }
+  }
+};
+```
+
+Or providing nice error messages like in the default config above.
+
+#### `redirect` *Redirecting* to another endpoint
+
+Sometimes you don't _want_ to show an error page;
+_instead_ you want to re-direct to another page.
+For example, when your route/page requires the person
+to be authenticated (_logged in_), but they have
+not supplied a valid session/token to view the route/page.
+
+In this situation the default Hapi behaviour is to return a `401` (_unauthorized_) error,
+however this is not very _useful_ to the _person_ using your application.
+
+Redirecting to a specific url is _easy_ with `hapi-error`:
+
+```js
+const config = {
+	"401": { // if the statusCode is 401 redirect to /login page/endpoint
+		"redirect": "/login"
+	}
+}
+server.register([{
+    register: require('hapi-error'),
+    options: config // pass in your redirect configuration in options
+  },
+  require('vision')], function (err) {
+    // etc.
+});  
+```
+
+This will `redirect` the client/browser to the `/login` endpoint
+and will append a query parameter with the url the person was _trying_ to visit.
+
+e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
+
+> Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
+
+
+## *That's it*!
 
 *Want more...?* [*ask*!](https://github.com/dwyl/hapi-error/issues)
 
@@ -224,42 +297,7 @@ For example:
 request.handleError(!error, {errorMessage: 'Oops - there has been an error',
 email: 'example@mail.co', color:'blue'});
 ```
-You will then be able to use {{email}} and {{colur}} in your `error_template.html`
-
-### *Redirecting* to another endpoint
-
-Sometimes you don't _want_ to show an error page;
-_instead_ you want to re-direct to another page.
-For example, when your route/page requires the person
-to be authenticated (_logged in_), but they have
-not supplied a valid session/token to view the route/page.
-
-In this situation the default Hapi behaviour is to return a `401` (_unauthorized_) error,
-however this is not very _useful_ to the _person_ using your application.
-
-Redirecting to a specific url is _easy_ with `hapi-error`:
-
-```js
-const redirectConfig = {
-	"401": { // if the statusCode is 401 redirect to /login page/endpoint
-		"redirect": "/login"
-	}
-}
-server.register([{
-    register: require('hapi-error'),
-    options: redirectConfig // pass in your redirect configuration in options
-  },
-  require('vision')], function (err) {
-    // etc.
-});  
-```
-
-This will `redirect` the client/browser to the `/login` endpoint
-and will append a query parameter with the url the person was _trying_ to visit.
-
-e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
-
-> Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
+You will then be able to use {{email}} and {{color}} in your `error_template.html`
 
 ### logging
 
