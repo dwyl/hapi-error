@@ -62,7 +62,7 @@ npm install hapi-error --save
 
 ### 2. Include the plugin in your Hapi project
 
-Includ the plugin when you `register` your server:
+Include the plugin when you `register` your `server`:
 
 ```js
 var Hapi = require('hapi');
@@ -104,7 +104,7 @@ server.register([require('hapi-error'), require('vision')], function (err) {
 
   server.start(function (err) {
     if (err) {
-      throw err;
+      throw err; // if there's an error exit!
     }
     console.log('Visit:', server.info.uri);
   });
@@ -224,18 +224,20 @@ function handler (request, reply) {
   });
 }
 ```
-This can be re-written (*simplified*) using `Hoek.assert`
+This can be re-written (*simplified*) using `request.handleError` method:
 
 ```js
-var Hoek = require('hoek'); // require Hoek somewhere in your code
-
 function handler (request, reply) {
   db.get('yourkey', function (err, data) { // much simpler, right?
-    request.handleError(!err, 'A database error occurred');
+    request.handleError(err, 'A database error occurred');
     return reply('amazing_app_view', {data: data});
   }); // this has *exactly* the same effect in much less code.
 }
 ```
+Output:
+
+![hapi-error-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/19078231/590d2d80-8a47-11e6-82e2-742d193b43b9.png)
+
 #### Explanation:
 
 Under the hood, `request.handleError` is using `Hoek.assert` which
@@ -245,10 +247,6 @@ will `assert` that there is ***no error*** e.g:
 
 Which means that if there *is* an error, it will be "*thrown*"
 with the message you define in the *second argument*.
-
-Output:
-
-![hapi-error-a-database-error-occured](https://cloud.githubusercontent.com/assets/194400/19078231/590d2d80-8a47-11e6-82e2-742d193b43b9.png)
 
 <br />
 
