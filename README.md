@@ -10,6 +10,8 @@ Intercept errors in your Hapi web app/api and send a *useful* message to the cli
 [![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/hapi-error/issues)
 [![HitCount](https://hitt.herokuapp.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
+[![npm package version](https://img.shields.io/npm/v/hapi-error.svg)](https://www.npmjs.com/package/hapi-error)
+
 
 ![dilbert-404-error](https://cloud.githubusercontent.com/assets/194400/17856406/53feeee4-6875-11e6-8480-d493906f6aa1.png)
 
@@ -21,9 +23,9 @@ Intercept errors in your Hapi web app/api and send a *useful* message to the cli
 Most _non-technical_ people (_"average" web users_) have _no clue_
 what a `401` error is. And if you/we the developer(s) do not _communicate_ with them, it can quickly lead to confusion and
 [_abandonment_](https://en.wikipedia.org/wiki/Abandonment_rate)!
-If instead simply displaying `401` we _inform_ people:
+If instead of simply displaying **`401`** we _inform_ people:
 `"Please login to see that page."` we _**instantly improve**_
-the **UX** and thus make that person's day/life better.
+the **UX** and thus make that person's day/life better. :heart:
 
 > _The "**Number 1 Rule**" is to make sure your **error messages**
 sound like they’ve been **written for/by humans**_.
