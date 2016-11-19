@@ -25,15 +25,13 @@ If instead simply displaying `401` we _inform_ people:
 `"Please login to see that page."` we _**instantly improve**_
 the **UX** and thus make that person's day/life better.
 
-By default, `Hapi` does _not_ give people *friendly* error messages.
-This plugin lets your app display _consistent_, _**human-friendly**_ & *useful*
-error messages in your Hapi apps.
-
 > _The "**Number 1 Rule**" is to make sure your **error messages**
 sound like they’ve been **written for/by humans**_.
 [~ _The **Four H**'s of Writing Error Messages_](http://uxmas.com/2012/the-4-hs-of-writing-error-messages)
 
 ## *What*?
+
+By `default`, `Hapi` does _not_ give people *friendly* error messages.
 
 `hapi-error` is a plugin that lets your Hapi app display _consistent_, _**human-friendly**_ & *useful*
 error messages so the _people_ using your app
