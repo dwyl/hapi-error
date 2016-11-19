@@ -16,13 +16,31 @@ Intercept errors in your Hapi web app/api and send a *useful* message to the cli
 
 ## *Why*?
 
-By default, `Hapi` does not give people *friendly* error messages.
-This plugin lets your app display consistent, friendly & useful
+> #### Seeing an (_unhelpful/unfriendly_) error message is _by far_ the _most frustrating_ part of the "**User _Experience_**" (**UX**) of your web app/site.
+
+Most _non-technical_ people (_"average" web users_) have _no clue_
+what a `401` error is. And if you/we the developer(s) do not _communicate_ with them, it can quickly lead to confusion and
+[_abandonment_](https://en.wikipedia.org/wiki/Abandonment_rate)!
+If instead simply displaying `401` we _inform_ people:
+`"Please login to see that page."` we _**instantly improve**_
+the **UX** and thus make that person's day/life better.
+
+By default, `Hapi` does _not_ give people *friendly* error messages.
+This plugin lets your app display _consistent_, _**human-friendly**_ & *useful*
 error messages in your Hapi apps.
+
+> _The "**Number 1 Rule**" is to make sure your **error messages**
+sound like they’ve been **written for/by humans**_.
+[~ _The **Four H**'s of Writing Error Messages_](http://uxmas.com/2012/the-4-hs-of-writing-error-messages)
 
 ## *What*?
 
-> Try it: http://hapi-error.herokuapp.com/register/not+va-lid
+`hapi-error` is a plugin that lets your Hapi app display _consistent_, _**human-friendly**_ & *useful*
+error messages so the _people_ using your app
+[_don't panic_](https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Don.27t_Panic).
+
+> Try it: http://hapi-error.herokuapp.com/panacea
+
 
 Under the hood, Hapi uses
 [`Boom`](https://github.com/dwyl/learn-hapi#error-handling-with-boom)
@@ -52,9 +70,12 @@ that in the `headers.accept` and it will still receive the JSON error messages.
 
 ## *How*?
 
+> **Note**: If you (_or anyone on your team_) are _unfamiliar_ with **Hapi.js** we have a
+quick guide/tutorial to help get you started: [https://github.com/dwyl/**learn-hapi**](https://github.com/dwyl/learn-hapi)
+
 Error handling in 3 *easy* steps:
 
-### 1. Install the [plugin](https://www.npmjs.com/package/hapi-error) from npm:
+### 1. Install the [plugin](https://www.npmjs.com/package/hapi-error) from NPM:
 
 ```sh
 npm install hapi-error --save
@@ -356,7 +377,7 @@ useful properties which you can use.
 All the properties which are logged by `hapi-error` are available in
 your error template.
 
-### Are Query Parmeters Preserved?
+### Are Query Parameters Preserved?
 
 ***Yes***! e.g: if the original url is `/admin?sort=desc`
 the redirect url will be: `/login?redirect=/admin?sort=desc`
@@ -368,12 +389,9 @@ http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-que
 so the query is preserved and can be used to send the person
 to the _exact_ url they requested _after_ they have successfully logged in.
 
-
-
 <br />
----
 
-### Under the Hood / Implementation Detail:
+### Under the Hood (_Implementation Detail_):
 
 When there is an error in the request/response cycle,
 the Hapi `request` Object has *useful* error object we can use.
