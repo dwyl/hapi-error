@@ -43,8 +43,8 @@
     "vision": "^4.1.0"
   },
   "pre-commit": [
-    "lint",
-    "check-coverage"
+    "check-coverage",
+    "lint"
   ],
   "keywords": [
     "custom",
