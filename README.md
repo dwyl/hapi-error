@@ -9,7 +9,6 @@ Intercept errors in your Hapi web app/api and send a *useful* message to the cli
 [![Dependency Status](https://david-dm.org/dwyl/hapi-error.svg)](https://david-dm.org/dwyl/hapi-error)
 [![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/hapi-error/issues)
-[![HitCount](https://hitt.herokuapp.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
 [![npm package version](https://img.shields.io/npm/v/hapi-error.svg)](https://www.npmjs.com/package/hapi-error)
 
 
@@ -444,3 +443,6 @@ If you have _any_ questions, just [*ask*!](https://github.com/dwyl/hapi-error/is
 
 + Writing *useful* / *friendly* error messages:
 https://medium.com/@thomasfuchs/how-to-write-an-error-message-883718173322
+
+[![https://nodei.co/npm/hapi-error.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/hapi-error.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/hapi-error)
+[![HitCount](https://hitt.herokuapp.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
