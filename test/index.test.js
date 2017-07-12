@@ -33,7 +33,7 @@ test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=wo
   });
 });
 
-/** *********************** Message TEST ***************************/
+/************************* Message TEST ***************************/
 
 test('example of overriding the', function (t) {
   var options = {
@@ -205,6 +205,18 @@ test("GET /error should display an error page containing the current person's em
     t.end( jwtserver.stop(function(){ }) );
   });
 });
+
+/************************* API (no vision) Tests ***************************/
+
+var apiServer = require('./api_server.js');
+
+test('regression test for #49 (when no vison views configured)', function (t) {
+  apiServer.inject({ url: '/error' }, function (res) {
+    t.equal(res.statusCode, 404, 'statusCode give back ok');
+    apiServer.stop(t.end);
+  });
+});
+
 
 test.onFinish(function () {
   server.stop(function(){ }); // stop the hapi server after 500 error
