@@ -38,6 +38,15 @@ server.route([
   },
   {
     method: 'GET',
+    path: '/management',
+    config: {
+      handler: function (request, reply) {
+        reply(Boom.forbidden('Forbidden'));
+      }
+    }
+  },
+  {
+    method: 'GET',
     path: '/register/{param*}',
     config: {
       validate: {
