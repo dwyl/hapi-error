@@ -215,6 +215,11 @@ const config = {
   statusCodes: {
     "401": { // if the statusCode is 401
       "redirect": "/login" // redirect to /login page/endpoint
+    },
+    "403": { // if the statusCode is 403
+      "redirect": function (request) {
+        return "/login?redirect=" + request.url.path
+      }
     }
   }
 }
@@ -227,14 +232,16 @@ server.register([{
 });  
 ```
 
-This will `redirect` the client/browser to the `/login` endpoint
+This in both cases will `redirect` the client/browser to the `/login` endpoint
 and will append a query parameter with the url the person was _trying_ to visit.
+With the use of function instead of simple string you can further manipulate the resulted url.
+Should the parameter be a function and return false it will be ignored.
 
 e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
 > Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
 
-
+  
 ## *That's it*!
 
 *Want more...?* [*ask*!](https://github.com/dwyl/hapi-error/issues)
