@@ -3,9 +3,14 @@ var server = require('../example/server.js');
 var Hoek = require('hoek');
 
 var config = {
-	"401": { // if the statusCode is 401 redirect to /login page/endpoint
-		"redirect": "/login"
-	}
+  "401": { // if the statusCode is 401 redirect to /login page/endpoint
+    "redirect": "/login"
+  },
+  "403": {
+    "redirect": function (request) {
+      return "/login?redirect=" + request.url.path
+    }
+  }
 }
 
 server.register([{
