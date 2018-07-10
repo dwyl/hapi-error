@@ -1,6 +1,6 @@
 {
   "name": "hapi-error",
-  "version": "1.8.0",
+  "version": "2.0.0",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "lib/index.js",
   "scripts": {
@@ -31,8 +31,8 @@
     "good-squeeze": "^5.0.2",
     "goodparts": "^1.2.1",
     "handlebars": "^4.0.10",
-    "hapi": "^16.4.3",
-    "hapi-auth-jwt2": "^7.3.0",
+    "hapi": "^17.2.3",
+    "hapi-auth-jwt2": "^8.1.0",
     "istanbul": "^0.4.5",
     "joi": "^10.6.0",
     "jsonwebtoken": "^7.4.1",
