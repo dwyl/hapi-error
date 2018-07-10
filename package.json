@@ -4,8 +4,8 @@
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "lib/index.js",
   "scripts": {
-    "test": "istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js  | node_modules/tap-spec/bin/cmd.js",
-    "nocov": "./node_modules/tape/bin/tape ./test/*.test.js",
+    "test": "nyc tape ./test/*.test.js | tap-nyc",
+    "nocov": "tape ./test/*.test.js",
     "dev": "PORT=8000 ./node_modules/.bin/nodemon example/server_example.js",
     "start": "node example/server_example.js",
     "check-coverage": "npm run test && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
@@ -21,26 +21,27 @@
   },
   "homepage": "https://github.com/dwyl/hapi-error#readme",
   "dependencies": {
-    "hoek": "^4.1.0"
+    "hoek": "^5.0.3"
   },
   "devDependencies": {
-    "boom": "^5.1.0",
+    "boom": "^7.2.0",
     "decache": "^4.1.0",
-    "good": "^7.2.0",
-    "good-console": "^6.4.0",
+    "good": "^8.1.1",
+    "good-console": "^7.1.0",
     "good-squeeze": "^5.0.2",
     "goodparts": "^1.2.1",
     "handlebars": "^4.0.10",
     "hapi": "^17.2.3",
     "hapi-auth-jwt2": "^8.1.0",
-    "istanbul": "^0.4.5",
-    "joi": "^10.6.0",
-    "jsonwebtoken": "^7.4.1",
+    "joi": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
     "nodemon": "^1.11.0",
+    "nyc": "12.0.2",
     "pre-commit": "^1.2.2",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.7.0",
-    "vision": "^4.1.0"
+    "tap-nyc": "1.0.3",
+    "tape": "4.9.1",
+    "tape-async": "2.3.0",
+    "vision": "^5.3.3"
   },
   "pre-commit": [
     "check-coverage",

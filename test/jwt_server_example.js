@@ -1,6 +1,9 @@
+'use strict';
+
 process.env.JWT_SECRET = 'supersecret'; // github.com/dwyl/hapi-auth-jwt2#generating-your-secret-key
 var Hapi = require('hapi');
 var path = require('path');
+var Hoek = require('hoek');
 var assert = require('assert');
 var server = new Hapi.Server({ port: 8765, debug: false });
 
@@ -20,43 +23,37 @@ var validate = function (decoded, request, callback) {
   }
 };
 
-server.register([ // uncomment this if you need to debug
-    // {
-    //   register: require('good'),
-    //   options: require('./good_options'),
-    // },
-    require('../lib/index.js'), 
-    require('vision'),
-    require('hapi-auth-jwt2')
-  ], function (err) {
-  
-  assert(!err);
-
-  server.views({
-    engines: {
-      html: require('handlebars')
-    },
-    path: path.resolve(__dirname, '../example')
-  });
-
-  server.auth.strategy('jwt', 'jwt', {
-    key: process.env.JWT_SECRET,
-    validateFunc: validate
-  });
-
-  server.route([
-    { method: 'GET', path: '/throwerror', config: { auth: 'jwt' }, 
-      handler: function throwerror (request, reply) {
-        var err = true; // deliberately throw an error for https://git.io/vPZ4A
-        return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
-      } 
-  }]);
-
-});
-
 // server.start(function (err) {
 //   assert(!err);
 //   server.log('info', 'Visit: ' + server.info.uri);
 // });
 
-module.exports = server;
+module.exports = async () => {
+  try {
+    await server.register(require('../lib/index.js'));
+    await server.register(require('vision'));
+    await server.register(require('hapi-auth-jwt2'));
+    await server.views({
+      engines: {
+        html: require('handlebars')
+      },
+      path: path.resolve(__dirname, '../example')
+    });
+    await server.auth.strategy('jwt', 'jwt', {
+      key: process.env.JWT_SECRET,
+      validate: validate
+    });
+    await server.route([
+      { method: 'GET', path: '/throwerror', config: { auth: 'jwt' }, 
+        handler: function throwerror (request, reply) {
+          var err = true; // deliberately throw an error for https://git.io/vPZ4A
+          return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
+        } 
+    }]);
+    Hoek.assert('no errors registering plugins');
+    return server;
+  } catch (e) {
+    throw e;
+  }
+};
+;

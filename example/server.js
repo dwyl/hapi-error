@@ -1,3 +1,5 @@
+'use strict';
+
 var Hapi = require('hapi');
 var Boom = require('boom');
 var Hoek = require('hoek');
