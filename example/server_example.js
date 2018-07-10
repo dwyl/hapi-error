@@ -7,14 +7,13 @@ server.register(
     require('vision')
   ],
   function (err) {
-  Hoek.assert(!err, 'no errors registering plugins');
-});
-
-server.views({
-  engines: {
-    html: require('handlebars')
-  },
-  path: require('path').resolve(__dirname, './')
+    server.views({
+      engines: {
+        html: require('handlebars')
+      },
+      path: require('path').resolve(__dirname, './')
+    });
+    Hoek.assert(!err, 'no errors registering plugins');
 });
 
 server.start(function (err) {
