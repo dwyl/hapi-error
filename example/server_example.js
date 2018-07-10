@@ -1,3 +1,4 @@
+'use strict';
 var server = require('./server.js');
 var Hoek   = require('hoek');
 
