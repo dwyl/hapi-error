@@ -2,9 +2,8 @@ process.env.JWT_SECRET = 'supersecret'; // github.com/dwyl/hapi-auth-jwt2#genera
 var Hapi = require('hapi');
 var path = require('path');
 var assert = require('assert');
-var server = new Hapi.Server({ debug: false });
+var server = new Hapi.Server({ port: 8765, debug: false });
 
-server.connection({port: 8765 });
 
 var db = {
   '123': { allowed: true,  name: 'Charlie', email: 'charlie@mail.co' },
