@@ -22,7 +22,7 @@ server.route([
     path: '/error',
     config: {
       handler: function (request, reply) {
-        throe new Error('500');
+        throw new Error('500');
       }
     }
   },
