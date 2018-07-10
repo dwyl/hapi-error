@@ -14,9 +14,9 @@ var Hoek   = require('hoek');
     Hoek.assert(!err, 'no errors registering plugins');
   
     server.start(function (err) {
-    Hoek.assert(!err, 'no errors starting server');
-    server.log('info', 'Visit: ' + server.info.uri);
-});
+        Hoek.assert(!err, 'no errors starting server');
+        server.log('info', 'Visit: ' + server.info.uri);
+    });
 })();
 
 module.exports = server;
