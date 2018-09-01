@@ -3,5 +3,4 @@ node_js:
   - "8"
 sudo: false
 after_success:
-  - pip install --user codecov
-  - codecov --file coverage/lcov.info --disable search
+	npm run codecov
