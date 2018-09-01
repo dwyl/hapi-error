@@ -35,3 +35,5 @@ node_modules
 
 // currently required for Goodparts
 .eslintrc.js
+
+.nyc_output

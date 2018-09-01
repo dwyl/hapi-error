@@ -66,6 +66,10 @@ The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi
 > ***Note***: if the client expects a JSON response simply define
 that in the `headers.accept` and it will still receive the JSON error messages.
 
+## *v2.0.0 Changes*
+1. Support for Hapi.js v17
+2. Not backward compatible with Hapi.js < v17
+3. Requires NodeJS v8 and above 
 
 ## *How*?
 
@@ -87,8 +91,7 @@ Include the plugin when you `register` your `server`:
 ```js
 var Hapi = require('hapi');
 var Path = require('path');
-var server = new Hapi.Server();
-server.connection({ port: process.env.PORT || 8000 });
+var server = new Hapi.Server({ port: process.env.PORT || 8000 });
 
 server.route([
   {
@@ -110,27 +113,24 @@ server.route([
     }
   }
 ]);
+
 // this is where we include the hapi-error plugin:
-server.register([require('hapi-error'), require('vision')], function (err) {
-  if (err) {
-    throw err;
+module.exports = async () => {
+  try {
+    await server.register(require('hapi-error'));
+    await server.register(require('vision'));
+    server.views({
+      engines: {
+        html: require('handlebars') // or Jade or Riot or React etc.
+      },
+      path: Path.resolve(__dirname, '/your/view/directory')
+    });
+    await server.start();
+    return server;
+  } catch (e) {
+    throw e;
   }
-  server.views({
-    engines: {
-      html: require('handlebars') // or Jade or Riot or React etc.
-    },
-    path: Path.resolve(__dirname, '/your/view/directory')
-  });
-
-  server.start(function (err) {
-    if (err) {
-      throw err; // if there's an error exit!
-    }
-    console.log('Visit:', server.info.uri);
-  });
-});
-
-module.exports = server;
+};
 ```
 
 > See: [/example/server_example.js](https://github.com/dwyl/hapi-error/blob/master/example/server_example.js) for simple example
@@ -218,13 +218,13 @@ const config = {
     }
   }
 }
-server.register([{
-    register: require('hapi-error'),
-    options: config // pass in your redirect configuration in options
-  },
-  require('vision')], function (err) {
-    // etc.
-});  
+(async () => {
+  await server.register({
+      plugin: require('hapi-error'),
+      options: config // pass in your redirect configuration in options
+    });
+  await server.register(require('vision'));
+})();
 ```
 
 This will `redirect` the client/browser to the `/login` endpoint

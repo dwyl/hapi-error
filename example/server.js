@@ -1,10 +1,11 @@
+'use strict';
+
 var Hapi = require('hapi');
 var Boom = require('boom');
 var Hoek = require('hoek');
 var Joi = require('joi');
 
-var server = new Hapi.Server();
-server.connection({ port: process.env.PORT });
+var server = new Hapi.Server({ port: process.env.PORT });
 
 server.route([
   {
@@ -14,7 +15,7 @@ server.route([
       handler: function (request, reply) {
         var err = null;
         request.handleError(err);
-        return reply('hello');
+        return 'hello';
       }
     }
   },
@@ -23,7 +24,7 @@ server.route([
     path: '/error',
     config: {
       handler: function (request, reply) {
-        reply(new Error('500'));
+        throw new Error('500');
       }
     }
   },
@@ -32,7 +33,7 @@ server.route([
     path: '/admin',
     config: {
       handler: function (request, reply) {
-        reply(Boom.unauthorized('Anauthorised'));
+        throw Boom.unauthorized('Anauthorised');
       }
     }
   },
@@ -45,9 +46,9 @@ server.route([
       },
       handler: function (request, reply) {
         if(request.params.param.indexOf('script') > -1) { // more validation
-          return reply(Boom.notFound('hapi-error intercepts this'));
+          throw Boom.notFound('hapi-error intercepts this');
         } else {
-          return reply('Hello ' + request.params.param + '!')
+          return 'Hello ' + request.params.param + '!';
         }
       }
     }
@@ -57,7 +58,7 @@ server.route([
     path: '/login',
     config: {
       handler: function (request, reply) {
-        reply('please login');
+        return 'please login';
       }
     }
   }
