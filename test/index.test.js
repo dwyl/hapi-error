@@ -13,6 +13,13 @@ test("handleError no error is thrown when error = null", function (t) {
   t.end();
 });
 
+test("handleError don't throw error even if errorMessage is set", function (t) {
+  var error = null;
+  t.equal(handleError(error, 'this will not throw!'), undefined, 'No error thrown');
+  t.end();
+});
+
+
 /************************* REDIRECT TEST ***************************/
 require('decache')('../example/server.js');
 test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", async function (t) {

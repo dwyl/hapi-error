@@ -4,7 +4,7 @@
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "lib/index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov tape ./test/*.test.js | tap-nyc",
+    "test": "nyc tape ./test/*.test.js | tap-nyc",
     "nocov": "tape ./test/*.test.js",
     "dev": "PORT=8000 ./node_modules/.bin/nodemon example/server_example.js",
     "start": "node example/server_example.js",
@@ -31,7 +31,6 @@
     "good": "^8.1.1",
     "good-console": "^7.1.0",
     "good-squeeze": "^5.0.2",
-    "goodparts": "^1.2.1",
     "handlebars": "^4.0.10",
     "hapi": "^17.2.3",
     "hapi-auth-jwt2": "^8.1.0",
@@ -46,8 +45,7 @@
     "vision": "^5.3.3"
   },
   "pre-commit": [
-    "check-coverage",
-    "lint"
+    "check-coverage"
   ],
   "keywords": [
     "custom",
@@ -70,8 +68,8 @@
   "author": "dwyl & co",
   "nyc": {
     "exclude": [
-      "**/*.spec.js",
-      "build"
+      "example/*.js",
+      "test/*.js"
     ]
   }
 }
