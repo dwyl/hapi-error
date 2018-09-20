@@ -12,7 +12,7 @@ declare namespace hapiError{
         statusCodes?: {};
     }
     type handleError = (error: Error, errorMessage: string) => boolean;
-};
+}
 
 
 declare const hapiError: Plugin<hapiError.Options>;
