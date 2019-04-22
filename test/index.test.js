@@ -38,6 +38,22 @@ test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=wo
   });
 });
 
+test("GET /management?hello=world should re-direct to /login?redirect=/management?hello=world", function (t) {
+  require('decache')('../lib/index.js'); // ensure we have a fresh module
+
+  var options = {
+    method: 'GET',
+    url: '/management?hello=world' // this will re-direct to /login
+  };
+  redirectserver.inject(options, function(res){
+    // console.log(res);
+    t.equal(res.statusCode, 302, 'statusCode: + ' + res.statusCode + ' (as expected)');
+    var url = '/login?redirect=/management?hello=world';
+    t.equal(res.headers.location, url, 'Successfully redirected to: ' + url);
+    t.end(  redirectserver.stop(function(){ }) );
+  });
+});
+
 /************************* Message TEST ***************************/
 test('Initializing message_server_example', async function (t) {
   try {
