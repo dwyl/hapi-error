@@ -9,7 +9,6 @@
     "dev": "PORT=8000 ./node_modules/.bin/nodemon example/server_example.js",
     "start": "node example/server_example.js",
     "check-coverage": "npm run test && nyc check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
-    "codecov": "nyc report --reporter=text-lcov > coverage.lcov tape ./test/*.test.js && codecov",
     "lint": "node_modules/.bin/goodparts ./lib",
     "open-cov": "open ./coverage/lcov-report/index.html"
   },
@@ -27,7 +26,6 @@
   },
   "devDependencies": {
     "boom": "^7.2.0",
-    "codecov": "^3.0.4",
     "decache": "^4.1.0",
     "good": "^8.1.1",
     "good-console": "^7.1.0",
