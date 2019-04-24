@@ -21,38 +21,48 @@ test("handleError don't throw error even if errorMessage is set", function (t) {
 
 
 /************************* REDIRECT TEST ***************************/
-require('decache')('../example/server.js');
-test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", async function (t) {
-  require('decache')('../lib/index.js'); // ensure we have a fresh module
+test('Initializing redirect_server_example', async function (t) {
+  require('decache')('../example/server.js');
   var redirectserver = await require('./redirect_server_example')();
-  var options = {
-    method: 'GET',
-    url: '/admin?hello=world' // this will re-direct to /login
-  };
-  redirectserver.inject(options, function(res){
-    // console.log(res);
+  test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", async function (t) {
+    require('decache')('../lib/index.js'); // ensure we have a fresh module
+    const options = {
+      method: 'GET',
+      url: '/admin?hello=world' // this will re-direct to /login
+    };
+    const res = await redirectserver.inject(options);
     t.equal(res.statusCode, 302, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    var url = '/login?redirect=/admin?hello=world';
+    const url = '/login?redirect=/admin?hello=world';
     t.equal(res.headers.location, url, 'Successfully redirected to: ' + url);
-    t.end(  redirectserver.stop(function(){ }) );
+    t.end(await redirectserver.stop());
   });
-});
 
-test("GET /management?hello=world should re-direct to /login?redirect=/management?hello=world", function (t) {
-  require('decache')('../lib/index.js'); // ensure we have a fresh module
+  test("GET /management?hello=world should re-direct to /login?redirect=/management?hello=world", async function (t) {
+    require('decache')('../lib/index.js'); // ensure we have a fresh module
 
-  var options = {
-    method: 'GET',
-    url: '/management?hello=world' // this will re-direct to /login
-  };
-  redirectserver.inject(options, function(res){
-    // console.log(res);
+    var options = {
+      method: 'GET',
+      url: '/management?hello=world' // this will re-direct to /login
+    };
+    const res = await redirectserver.inject(options);
     t.equal(res.statusCode, 302, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    var url = '/login?redirect=/management?hello=world';
+    const url = '/login?redirect=/management?hello=world';
     t.equal(res.headers.location, url, 'Successfully redirected to: ' + url);
-    t.end(  redirectserver.stop(function(){ }) );
+    t.end(await redirectserver.stop());
   });
-});
+
+  test("GET /management?hello=world should not re-direct on redirect function returning false", async function (t) {
+    require('decache')('../lib/index.js'); // ensure we have a fresh module
+
+    const options = {
+      method: 'GET',
+      url: '/management?hello=world&noredirect=1' // this will prevent re-direction
+    };
+    const res = await redirectserver.inject(options);
+    t.equal(res.statusCode, 403, 'statusCode should be the original 403');
+    t.end(await redirectserver.stop());
+  });
+})
 
 /************************* Message TEST ***************************/
 test('Initializing message_server_example', async function (t) {
