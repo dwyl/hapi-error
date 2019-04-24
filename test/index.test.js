@@ -21,38 +21,48 @@ test("handleError don't throw error even if errorMessage is set", function (t) {
 
 
 /************************* REDIRECT TEST ***************************/
-require('decache')('../example/server.js');
-test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", async function (t) {
-  require('decache')('../lib/index.js'); // ensure we have a fresh module
+test('Initializing redirect_server_example', async function (t) {
+  require('decache')('../example/server.js');
   var redirectserver = await require('./redirect_server_example')();
-  var options = {
-    method: 'GET',
-    url: '/admin?hello=world' // this will re-direct to /login
-  };
-  redirectserver.inject(options, function(res){
-    // console.log(res);
+  test("GET /admin?hello=world should re-direct to /login?redirect=/admin?hello=world", async function (t) {
+    require('decache')('../lib/index.js'); // ensure we have a fresh module
+    const options = {
+      method: 'GET',
+      url: '/admin?hello=world' // this will re-direct to /login
+    };
+    const res = await redirectserver.inject(options);
     t.equal(res.statusCode, 302, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    var url = '/login?redirect=/admin?hello=world';
+    const url = '/login?redirect=/admin?hello=world';
     t.equal(res.headers.location, url, 'Successfully redirected to: ' + url);
-    t.end(  redirectserver.stop(function(){ }) );
+    t.end(await redirectserver.stop());
   });
-});
 
-test("GET /management?hello=world should re-direct to /login?redirect=/management?hello=world", function (t) {
-  require('decache')('../lib/index.js'); // ensure we have a fresh module
+  test("GET /management?hello=world should re-direct to /login?redirect=/management?hello=world", async function (t) {
+    require('decache')('../lib/index.js'); // ensure we have a fresh module
 
-  var options = {
-    method: 'GET',
-    url: '/management?hello=world' // this will re-direct to /login
-  };
-  redirectserver.inject(options, function(res){
-    // console.log(res);
+    var options = {
+      method: 'GET',
+      url: '/management?hello=world' // this will re-direct to /login
+    };
+    const res = await redirectserver.inject(options);
     t.equal(res.statusCode, 302, 'statusCode: + ' + res.statusCode + ' (as expected)');
-    var url = '/login?redirect=/management?hello=world';
+    const url = '/login?redirect=/management?hello=world';
     t.equal(res.headers.location, url, 'Successfully redirected to: ' + url);
-    t.end(  redirectserver.stop(function(){ }) );
+    t.end(await redirectserver.stop());
   });
-});
+
+  test("GET /management?hello=world should not re-direct on redirect function returning false", async function (t) {
+    require('decache')('../lib/index.js'); // ensure we have a fresh module
+
+    const options = {
+      method: 'GET',
+      url: '/management?hello=world&noredirect=1' // this will prevent re-direction
+    };
+    const res = await redirectserver.inject(options);
+    t.equal(res.statusCode, 403, 'statusCode should be the original 403');
+    t.end(await redirectserver.stop());
+  });
+})
 
 /************************* Message TEST ***************************/
 test('Initializing message_server_example', async function (t) {
@@ -64,12 +74,10 @@ test('Initializing message_server_example', async function (t) {
         method: 'GET',
         url: '/notfound'
       };
-
-      messageServer.inject(options, function (res) {
-        t.ok(res.payload.includes('robots in disguise'), '404 gets transformed');
-        t.equal(res.statusCode, 404, 'statusCode give back ok');
-        t.end();
-      });
+      const res = await messageServer.inject(options);
+      t.ok(res.payload.includes('robots in disguise'), '404 gets transformed');
+      t.equal(res.statusCode, 404, 'statusCode give back ok');
+      t.end();
     });
 
     test('example of adding a new message transform which uses req',async function (t) {
@@ -78,11 +86,10 @@ test('Initializing message_server_example', async function (t) {
         url: '/error'
       };
 
-      messageServer.inject(options, function (res) {
-        t.ok(res.payload.includes('User agent: shot'), 'Internal Server Error');
-        t.equal(res.statusCode, 500, 'statusCode 500');
-        t.end();
-      });
+      const res = await messageServer.inject(options);
+      t.ok(res.payload.includes('User agent: shot'), 'Internal Server Error');
+      t.equal(res.statusCode, 500, 'statusCode 500');
+      t.end();
     });
 
     test('close messageServer',async function (t) {
@@ -103,12 +110,10 @@ test('Initializing server_example', async function (t) {
       url: '/',
       headers: { accept: 'application/json' }
     };
-    server.inject(options, function(res){
-      // console.log(res);
-      t.ok(res.payload.includes('hello'), 'No Errors');
-      t.equal(res.statusCode, 200, 'statusCode 200');
-      t.end();
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('hello'), 'No Errors');
+    t.equal(res.statusCode, 200, 'statusCode 200');
+    t.end();
   });
 
   test("GET /login ",async function (t) {
@@ -117,11 +122,10 @@ test('Initializing server_example', async function (t) {
       url: '/login',
       headers: { accept: 'application/json' }
     };
-    server.inject(options, function(res) {
-      t.equal(res.statusCode, 200, 'statusCode 200');
-      t.ok(res.payload.includes('please login'), 'Please Login');
-      t.end();
-    });
+    const res = await server.inject(options);
+    t.equal(res.statusCode, 200, 'statusCode 200');
+    t.ok(res.payload.includes('please login'), 'Please Login');
+    t.end();
   });
 
   test("GET /notfound returns 404",async function (t) {
@@ -129,12 +133,10 @@ test('Initializing server_example', async function (t) {
       method: 'GET',
       url: '/notfound'
     };
-    server.inject(options, function(res){
-      // console.log(res);
-      t.ok(res.payload.includes('not available'), 'page not available');
-      t.equal(res.statusCode, 404, 'statusCode 404');
-      t.end();
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('not available'), 'page not available');
+    t.equal(res.statusCode, 404, 'statusCode 404');
+    t.end();
   });
 
   test("GET /admin expect to see 401 unauthorized error",async function (t) {
@@ -142,12 +144,10 @@ test('Initializing server_example', async function (t) {
       method: 'GET',
       url: '/admin'
     };
-    server.inject(options, function(res){
-      // console.log(res.playload);
-      t.ok(res.payload.includes('Please Login'), 'Please login to see /admin');
-      t.equal(res.statusCode, 401, 'statusCode 401');
-      t.end();
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('Please Login'), 'Please login to see /admin');
+    t.equal(res.statusCode, 401, 'statusCode 401');
+    t.end();
   });
 
   test("GET /error returns 500 Error HTML Page",async function (t) {
@@ -155,12 +155,10 @@ test('Initializing server_example', async function (t) {
       method: 'GET',
       url: '/error'
     };
-    server.inject(options, function(res){
-      // console.log(res);
-      t.ok(res.payload.includes('500'), 'Internal Server Error');
-      t.equal(res.statusCode, 500, 'statusCode 500');
-      t.end();
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('500'), 'Internal Server Error');
+    t.equal(res.statusCode, 500, 'statusCode 500');
+    t.end();
   });
 
   test("GET /error returns JSON when headers.accept 'application/json'",async function (t) {
@@ -169,12 +167,10 @@ test('Initializing server_example', async function (t) {
       url: '/error',
       headers: { accept: 'application/json' }
     };
-    server.inject(options, function(res){
-      // console.log(res.payload, typeof res.payload);
-      t.ok(res.payload.includes('Internal Server Error'), '500 Server Error');
-      t.equal(res.statusCode, 500, 'Got statusCode 500 (as expected)');
-      t.end();
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('Internal Server Error'), '500 Server Error');
+    t.equal(res.statusCode, 500, 'Got statusCode 500 (as expected)');
+    t.end();
   });
 
   test("GET /register/username passes validation",async function (t) {
@@ -182,11 +178,10 @@ test('Initializing server_example', async function (t) {
       method: 'GET',
       url: '/register/username'
     };
-    server.inject(options, function(res){
-      t.ok(res.payload.includes('Hello username'), 'Passes validation');
-      t.equal(res.statusCode, 200, 'statusCode 200');
-      t.end(server.stop(function(){ }));
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('Hello username'), 'Passes validation');
+    t.equal(res.statusCode, 200, 'statusCode 200');
+    t.end(await server.stop());
   });
 
   test("GET /register/22%3A%5B%22black%22%5D%7D%22%3E%3C%7%203cript fails Joi validation",async function (t) {
@@ -194,11 +189,10 @@ test('Initializing server_example', async function (t) {
       method: 'GET',
       url: '/register/22%3A%5B%22black%22%5D%7D%22%3E%3C%7%203cript%3Ealert%281%29%3C%2fscript%3E'
     };
-    server.inject(options, function(res){
-      t.ok(res.payload.includes('Sorry'), 'Fails Joi validation');
-      t.equal(res.statusCode, 400, 'intercepted error > 400');
-      t.end(server.stop(function(){ }));
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('Sorry'), 'Fails Joi validation');
+    t.equal(res.statusCode, 400, 'intercepted error > 400');
+    t.end(await server.stop());
   });
 
   test("GET /register/myscript fails additional (CUSTOM) validation",async function (t) {
@@ -206,14 +200,13 @@ test('Initializing server_example', async function (t) {
       method: 'GET',
       url: '/register/myscript?hello=world'
     };
-    server.inject(options, function(res){
-      t.ok(res.payload.includes('Sorry, that page is not available.'), 'Got Friendly 404 Page');
-      t.equal(res.statusCode, 404, 'Got 404');
-      t.end(server.stop(function(){ }));
-    });
+    const res = await server.inject(options);
+    t.ok(res.payload.includes('Sorry, that page is not available.'), 'Got Friendly 404 Page');
+    t.equal(res.statusCode, 404, 'Got 404');
+    t.end(await server.stop());
   });
   test.onFinish(async function () {
-    server.stop(function(){ }); // stop the hapi server after 500 error
+    server.stop(); // stop the hapi server after 500 error
   });
   
 });
@@ -250,10 +243,9 @@ test('Initializing api_server', async function (t) {
   var apiServer = await require('./api_server.js')();
 
   test('regression test for #49 (when no vison views configured)',async function (t) {
-    apiServer.inject({ url: '/error' }, function (res) {
-      t.equal(res.statusCode, 404, 'statusCode give back ok');
-      apiServer.stop(t.end);
-    });
+    const res = await apiServer.inject({ url: '/error' });
+    t.equal(res.statusCode, 404, 'statusCode give back ok');
+    t.end(await apiServer.stop());
   });
 });
 

@@ -10,6 +10,9 @@ var config = {
   },
   "403": {
     "redirect": function (request) {
+      if (request.query.noredirect) {
+        return false;
+      }
       return "/login?redirect=" + request.url.path
     }
   }
