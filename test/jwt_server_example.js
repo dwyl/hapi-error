@@ -5,7 +5,7 @@ var Hapi = require('hapi');
 var path = require('path');
 var Hoek = require('hoek');
 var assert = require('assert');
-var server = new Hapi.Server({ port: 8765, debug: false });
+var server = new Hapi.Server({ port: 8765, debug: { request: ['error'] } });
 
 
 var db = {
@@ -15,6 +15,7 @@ var db = {
 
 // for a more real-world validate function, see: https://git.io/vPZmr
 var validate = function (decoded, request, callback) {
+  
   if (db[decoded.id].allowed) {
     return callback(null, true);
   }
@@ -25,6 +26,7 @@ var validate = function (decoded, request, callback) {
 
 // server.start(function (err) {
 //   assert(!err);
+//   console.log('test!');
 //   server.log('info', 'Visit: ' + server.info.uri);
 // });
 
@@ -44,11 +46,11 @@ module.exports = async () => {
       validate: validate
     });
     await server.route([
-      { method: 'GET', path: '/throwerror', config: { auth: 'jwt' }, 
+      { method: 'GET', path: '/throwerror', config: { auth: 'jwt' },
         handler: function throwerror (request, reply) {
           var err = true; // deliberately throw an error for https://git.io/vPZ4A
           return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
-        } 
+        }
     }]);
     Hoek.assert('no errors registering plugins');
     return server;
