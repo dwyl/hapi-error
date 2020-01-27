@@ -42,7 +42,7 @@ server.route([
     path: '/management',
     config: {
       handler: function (request, reply) {
-        reply(Boom.forbidden('Forbidden'));
+        throw Boom.forbidden('forbidden');
       }
     }
   },
