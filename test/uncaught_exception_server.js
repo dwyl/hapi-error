@@ -8,7 +8,7 @@ var server = new Hapi.Server();
 module.exports = async () => {
   try {
     await server.register({
-      plugin: require('good'),
+      plugin: require('@hapi/good'),
       options: require('./good_options'),
     });
     await server.register(require('../lib/index.js'));
