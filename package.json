@@ -11,6 +11,9 @@
     "check-coverage": "npm run test && nyc check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
     "lint": "node_modules/.bin/goodparts ./lib"
   },
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dwyl/hapi-error.git"
