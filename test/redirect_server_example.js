@@ -10,7 +10,8 @@ var config = {
   },
   "403": {
     "redirect": function (request) {
-      return "/login?redirect=" + request.url.path
+      var redirectString = request.url.pathname + request.url.search;
+      return "/login?redirect=" + redirectString
     }
   }
 };
