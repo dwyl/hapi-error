@@ -1,8 +1,11 @@
 <div align="center">
+
 # `hapi-error`
 
 Intercept errors in your Hapi web app/api
 and send a *useful* message to the client.
+
+![dilbert-404-error](https://cloud.githubusercontent.com/assets/194400/17856406/53feeee4-6875-11e6-8480-d493906f6aa1.png)
 
 [![Known Vulnerabilities](https://snyk.io/test/github/dwyl/hapi-error/badge.svg?targetFile=package.json&style=flat-square)](https://snyk.io/test/github/dwyl/hapi-error?targetFile=package.json)
 [![Build Status](https://img.shields.io/travis/dwyl/hapi-error/master.svg?style=flat-square)](https://travis-ci.org/dwyl/hapi-error)
@@ -15,8 +18,6 @@ and send a *useful* message to the client.
 [![HitCount](http://hits.dwyl.io/dwyl/hapi-error.svg)](http://hits.dwyl.io/dwyl/hapi-error)
 [![npm package version](https://img.shields.io/npm/v/hapi-error.svg?style=flat-square)](https://www.npmjs.com/package/hapi-error)
 
-
-![dilbert-404-error](https://cloud.githubusercontent.com/assets/194400/17856406/53feeee4-6875-11e6-8480-d493906f6aa1.png)
 
 </div>
 
