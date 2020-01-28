@@ -224,7 +224,7 @@ const config = {
     },
     "403": { // if the statusCode is 403
       "redirect": function (request) {
-        return "/login?redirect=" + request.url.path
+        return "/login?redirect=" + request.url.pathname
       }
     }
   }
