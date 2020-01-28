@@ -101,7 +101,7 @@ test('Initializing message_server_example', async function (t) {
 test('Initializing server_example', async function (t) {
   decache('../example/server.js');
   const server = await require('../example/server_example')();
-  
+
   test("GET / returns 200",async function (t) {
     const options = {
       method: 'GET',
@@ -245,4 +245,3 @@ test('Initializing api_server', async function (t) {
     t.end();
   });
 });
-
