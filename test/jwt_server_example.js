@@ -44,11 +44,11 @@ module.exports = async () => {
       validate: validate
     });
     await server.route([
-      { method: 'GET', path: '/throwerror', config: { auth: 'jwt' }, 
+      { method: 'GET', path: '/throwerror', config: { auth: 'jwt' },
         handler: function throwerror (request, reply) {
           var err = true; // deliberately throw an error for https://git.io/vPZ4A
           return request.handleError(err, { errorMessage: 'Sorry, we haz fail.'});
-        } 
+        }
     }]);
     Hoek.assert('no errors registering plugins');
     return server;

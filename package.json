@@ -29,10 +29,7 @@
   "devDependencies": {
     "@hapi/boom": "^9.0.0",
     "@hapi/good": "^9.0.0",
-    "boom": "^7.3.0",
     "decache": "^4.5.1",
-    "good-console": "^8.0.0",
-    "good-squeeze": "^5.1.0",
     "handlebars": "^4.7.2",
     "hapi": "^18.1.0",
     "hapi-auth-jwt2": "^8.8.1",
