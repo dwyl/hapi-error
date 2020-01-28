@@ -1,7 +1,7 @@
 'use strict';
 
 var Hapi = require('hapi');
-var Hoek = require('hoek');
+var Hoek = require('@hapi/hoek');
 
 var server = new Hapi.Server();
 

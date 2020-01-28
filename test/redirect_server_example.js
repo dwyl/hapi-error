@@ -2,7 +2,7 @@
 
 require('decache')('../example/server.js'); // ensure we have a fresh module
 var server = require('../example/server.js');
-var Hoek = require('hoek');
+var Hoek = require('@hapi/hoek');
 
 var config = {
   "401": { // if the statusCode is 401 redirect to /login page/endpoint

@@ -3,7 +3,7 @@
 require('decache')('../example/server.js');
 // ensure we have a fresh module
 var server = require('../example/server.js');
-var Hoek = require('hoek');
+var Hoek = require('@hapi/hoek');
 var Path = require('path');
 var Handlebars = require('handlebars');
 

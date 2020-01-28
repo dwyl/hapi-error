@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/dwyl/hapi-error#readme",
   "dependencies": {
-    "hoek": "^5.0.3"
+    "@hapi/hoek": "^9.0.2"
   },
   "devDependencies": {
     "boom": "^7.2.0",

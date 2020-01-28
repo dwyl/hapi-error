@@ -3,7 +3,7 @@
 process.env.JWT_SECRET = 'supersecret'; // github.com/dwyl/hapi-auth-jwt2#generating-your-secret-key
 var Hapi = require('hapi');
 var path = require('path');
-var Hoek = require('hoek');
+var Hoek = require('@hapi/hoek');
 var assert = require('assert');
 var server = new Hapi.Server({ port: 8765, debug: false });
 

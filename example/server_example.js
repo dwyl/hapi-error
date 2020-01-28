@@ -1,7 +1,7 @@
 'use strict';
 
 var server = require('./server.js');
-var Hoek   = require('hoek');
+var Hoek   = require('@hapi/hoek');
 
 module.exports = async () => {
     try {

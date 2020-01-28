@@ -2,7 +2,7 @@
 
 // this mini server is for: https://github.com/dwyl/hapi-error/issues/49
 var Hapi = require('hapi');
-var Hoek = require('hoek');
+var Hoek = require('@hapi/hoek');
 
 var server = new Hapi.Server();
 

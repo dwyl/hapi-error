@@ -2,7 +2,7 @@
 
 var Hapi = require('hapi');
 var Boom = require('boom');
-var Hoek = require('hoek');
+var Hoek = require('@hapi/hoek');
 var Joi = require('joi');
 
 var server = new Hapi.Server({ port: process.env.PORT });
