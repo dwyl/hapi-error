@@ -1,7 +1,21 @@
-# hapi-error
+<div align="center">
+# `hapi-error`
 
-Intercept errors in your Hapi web app/api and send a *useful* message to the client.
+Intercept errors in your Hapi web app/api
+and send a *useful* message to the client.
 
+[![Known Vulnerabilities](https://snyk.io/test/github/dwyl/hapi-error/badge.svg?targetFile=package.json&style=flat-square)](https://snyk.io/test/github/dwyl/hapi-error?targetFile=package.json)
+[![Build Status](https://img.shields.io/travis/dwyl/hapi-error/master.svg?style=flat-square)](https://travis-ci.org/dwyl/hapi-error)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/hapi-error/master.svg?style=flat-square)](http://codecov.io/github/dwyl/hapi-error?branch=master)
+[![HAPI 18.4.x](http://img.shields.io/badge/hapi-18.4.0-brightgreen.svg?style=flat-square "Latest Hapi.js")](http://hapijs.com)
+[![Node.js Version](https://img.shields.io/node/v/hapi-error.svg?style=flat-square "Node.js 10 & 12 and io.js latest both supported")](http://nodejs.org/download/)
+[![Dependencies Status](https://david-dm.org/dwyl/hapi-error/status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error)
+[![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error?type=dev)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/hapi-error/issues)
+[![HitCount](http://hits.dwyl.io/dwyl/hapi-error.svg)](http://hits.dwyl.io/dwyl/hapi-error)
+[![npm package version](https://img.shields.io/npm/v/hapi-error.svg?style=flat-square)](https://www.npmjs.com/package/hapi-error)
+
+<!--
 [![Build Status](https://travis-ci.org/dwyl/hapi-error.svg?branch=master)](https://travis-ci.org/dwyl/hapi-error)
 [![Test Coverage](https://img.shields.io/codecov/c/github/dwyl/hapi-error.svg?maxAge=2592000)](https://codecov.io/github/dwyl/hapi-error?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg)](https://github.com/dwyl/goodparts)
@@ -10,10 +24,11 @@ Intercept errors in your Hapi web app/api and send a *useful* message to the cli
 [![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/hapi-error/issues)
 [![npm package version](https://img.shields.io/npm/v/hapi-error.svg)](https://www.npmjs.com/package/hapi-error)
-
+-->
 
 ![dilbert-404-error](https://cloud.githubusercontent.com/assets/194400/17856406/53feeee4-6875-11e6-8480-d493906f6aa1.png)
 
+</div>
 
 ## *Why*?
 
@@ -69,7 +84,7 @@ that in the `headers.accept` and it will still receive the JSON error messages.
 ## *v2.0.0 Changes*
 1. Support for Hapi.js v17
 2. Not backward compatible with Hapi.js < v17
-3. Requires NodeJS v8 and above 
+3. Requires NodeJS v8 and above
 
 ## *How*?
 
@@ -241,7 +256,7 @@ e.g: GET /admin --> 401 unauthorized --> redirect to /login?redirect=/admin
 
 > Redirect Example: [/redirect_server_example.js](https://github.com/dwyl/hapi-error/blob/master/test/redirect_server_example.js)
 
-  
+
 ## *That's it*!
 
 *Want more...?* [*ask*!](https://github.com/dwyl/hapi-error/issues)
