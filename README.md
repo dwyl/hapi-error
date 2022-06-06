@@ -15,7 +15,7 @@ and send a *useful* message to the client.
 [![Dependencies Status](https://david-dm.org/dwyl/hapi-error/status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error)
 [![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/hapi-error/issues)
-[![HitCount](http://hits.dwyl.io/dwyl/hapi-error.svg)](http://hits.dwyl.io/dwyl/hapi-error)
+[![HitCount](https://hits.dwyl.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
 [![npm package version](https://img.shields.io/npm/v/hapi-error.svg?style=flat-square)](https://www.npmjs.com/package/hapi-error)
 
 
