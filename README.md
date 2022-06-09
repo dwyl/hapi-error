@@ -9,13 +9,13 @@ and send a *useful* message to the client.
 
 [![Known Vulnerabilities](https://snyk.io/test/github/dwyl/hapi-error/badge.svg?targetFile=package.json&style=flat-square)](https://snyk.io/test/github/dwyl/hapi-error?targetFile=package.json)
 [![Build Status](https://img.shields.io/travis/dwyl/hapi-error/master.svg?style=flat-square)](https://travis-ci.org/dwyl/hapi-error)
-[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/hapi-error/master.svg?style=flat-square)](http://codecov.io/github/dwyl/hapi-error?branch=master)
-[![HAPI 18.4.x](http://img.shields.io/badge/hapi-18.4.0-brightgreen.svg?style=flat-square "Latest Hapi.js")](http://hapijs.com)
-[![Node.js Version](https://img.shields.io/node/v/hapi-error.svg?style=flat-square "Node.js 10 & 12 and io.js latest both supported")](http://nodejs.org/download/)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/hapi-error/master.svg?style=flat-square)](https://codecov.io/github/dwyl/hapi-error?branch=master)
+[![HAPI 18.4.x](https://img.shields.io/badge/hapi-18.4.0-brightgreen.svg?style=flat-square "Latest Hapi.js")](https://hapijs.com)
+[![Node.js Version](https://img.shields.io/node/v/hapi-error.svg?style=flat-square "Node.js 10 & 12 and io.js latest both supported")](https://nodejs.org/download/)
 [![Dependencies Status](https://david-dm.org/dwyl/hapi-error/status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error)
 [![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/hapi-error/issues)
-[![HitCount](https://hits.dwyl.com/dwyl/hapi-error.svg)](https://github.com/dwyl/hapi-error)
+[![HitCount](https://hits.dwyl.io/dwyl/hapi-error.svg)](https://hits.dwyl.io/dwyl/hapi-error)
 [![npm package version](https://img.shields.io/npm/v/hapi-error.svg?style=flat-square)](https://www.npmjs.com/package/hapi-error)
 
 
@@ -34,7 +34,7 @@ the **UX** and thus make that person's day/life better. :heart:
 
 > _The "**Number 1 Rule**" is to make sure your **error messages**
 sound like they’ve been **written for/by humans**_.
-[~ _The **Four H**'s of Writing Error Messages_](http://uxmas.com/2012/the-4-hs-of-writing-error-messages)
+[~ _The **Four H**'s of Writing Error Messages_](https://uxmas.com/2012/the-4-hs-of-writing-error-messages)
 
 ## *What*?
 
@@ -44,7 +44,7 @@ By `default`, `Hapi` does _not_ give people *friendly* error messages.
 error messages so the _people_ using your app
 [_don't panic_](https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Don.27t_Panic).
 
-> Try it: http://hapi-error.herokuapp.com/panacea
+> Try it: https://hapi-error.herokuapp.com/panacea
 
 
 Under the hood, Hapi uses
@@ -411,7 +411,7 @@ Such that after the person has logged in they will be re-directed
 back to to `/admin?sort=desc` _as desired_.
 
 And it's valid to have multiple question marks in the URL see:
-http://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
+https://stackoverflow.com/questions/2924160/is-it-valid-to-have-more-than-one-question-mark-in-a-url
 so the query is preserved and can be used to send the person
 to the _exact_ url they requested _after_ they have successfully logged in.
 
