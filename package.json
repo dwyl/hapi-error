@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/dwyl/hapi-error.git"
   },
-  "license": "GPL-2.0",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/dwyl/hapi-error/issues"
   },
