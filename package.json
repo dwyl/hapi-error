@@ -1,6 +1,6 @@
 {
   "name": "hapi-error",
-  "version": "2.3.1",
+  "version": "3.0.0",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "lib/index.js",
   "scripts": {
@@ -27,22 +27,22 @@
     "@hapi/hoek": "^10.0.0"
   },
   "devDependencies": {
-    "@types/hapi": "^18.0.7",
     "@hapi/boom": "^10.0.0",
     "@hapi/good": "^9.0.1",
+    "@hapi/hapi": "^20.2.2",
+    "@hapi/validate": "^2.0.0",
+    "@hapi/vision": "^6.1.0",
+    "@types/hapi": "^18.0.7",
     "decache": "^4.6.1",
     "handlebars": "^4.7.7",
-    "@hapi/hapi": "^20.2.2",
     "hapi-auth-jwt2": "^10.2.0",
-    "@hapi/validate": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.18",
     "nyc": "15.1.0",
     "pre-commit": "^1.2.2",
     "tap-nyc": "1.0.3",
     "tape": "5.5.3",
-    "tape-async": "2.3.0",
-    "@hapi/vision": "^6.1.0"
+    "tape-async": "2.3.0"
   },
   "pre-commit": [
     "check-coverage"
