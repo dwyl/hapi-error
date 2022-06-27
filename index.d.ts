@@ -1,11 +1,11 @@
 
-/// <reference types="hapi" />
+/// <reference types="@types/hapi" />
 
 import {
     Plugin,
     Request,
     ResponseObject,
-} from 'hapi';
+} from '@hapi/hapi';
 
 declare namespace hapiError{
     interface Options {

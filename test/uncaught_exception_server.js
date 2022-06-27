@@ -1,6 +1,6 @@
 'use strict';
 
-var Hapi = require('hapi');
+var Hapi = require('@hapi/hapi');
 var Hoek = require('@hapi/hoek');
 
 var server = new Hapi.Server();
@@ -12,7 +12,7 @@ module.exports = async () => {
       options: require('./good_options'),
     });
     await server.register(require('../lib/index.js'));
-    await server.register(require('vision'));
+    await server.register(require('@hapi/vision'));
     await server.views({
         engines: {
             html: require('handlebars')

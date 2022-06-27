@@ -95,7 +95,7 @@ npm install hapi-error --save
 Include the plugin when you `register` your `server`:
 
 ```js
-var Hapi = require('hapi');
+var Hapi = require('@hapi/hapi');
 var Path = require('path');
 var server = new Hapi.Server({ port: process.env.PORT || 8000 });
 

@@ -18,7 +18,7 @@ var config = {
 
 module.exports = async () => {
   try {
-    await server.register(require('vision'));
+    await server.register(require('@hapi/vision'));
     await server.register({
       plugin: require('../lib/index.js'),
       options: config // pass in your redirect configuration in options
