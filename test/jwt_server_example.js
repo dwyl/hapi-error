@@ -1,7 +1,7 @@
 'use strict';
 
 process.env.JWT_SECRET = 'supersecret'; // github.com/dwyl/hapi-auth-jwt2#generating-your-secret-key
-var Hapi = require('hapi');
+var Hapi = require('@hapi/hapi');
 var path = require('path');
 var Hoek = require('@hapi/hoek');
 var assert = require('assert');
@@ -31,7 +31,7 @@ var validate = function (decoded, request, callback) {
 module.exports = async () => {
   try {
     await server.register(require('../lib/index.js'));
-    await server.register(require('vision'));
+    await server.register(require('@hapi/vision'));
     await server.register(require('hapi-auth-jwt2'));
     await server.views({
       engines: {

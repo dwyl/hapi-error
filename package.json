@@ -1,6 +1,6 @@
 {
   "name": "hapi-error",
-  "version": "2.3.1",
+  "version": "3.0.0",
   "description": "catch errors in your hapi application and display the appropriate error message/page",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "lint": "node_modules/.bin/goodparts ./lib"
   },
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",
@@ -24,24 +24,25 @@
   },
   "homepage": "https://github.com/dwyl/hapi-error#readme",
   "dependencies": {
-    "@hapi/hoek": "^9.0.2"
+    "@hapi/hoek": "^10.0.0"
   },
   "devDependencies": {
-    "@hapi/boom": "^9.0.0",
-    "@hapi/good": "^9.0.0",
-    "decache": "^4.5.1",
-    "handlebars": "^4.7.2",
-    "hapi": "^18.1.0",
-    "hapi-auth-jwt2": "^8.8.1",
-    "joi": "^14.3.1",
+    "@hapi/boom": "^10.0.0",
+    "@hapi/good": "^9.0.1",
+    "@hapi/hapi": "^20.2.2",
+    "@hapi/validate": "^2.0.0",
+    "@hapi/vision": "^6.1.0",
+    "@types/hapi": "^18.0.7",
+    "decache": "^4.6.1",
+    "handlebars": "^4.7.7",
+    "hapi-auth-jwt2": "^10.2.0",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.2",
-    "nyc": "15.0.0",
+    "nodemon": "^2.0.18",
+    "nyc": "15.1.0",
     "pre-commit": "^1.2.2",
     "tap-nyc": "1.0.3",
-    "tape": "4.13.0",
-    "tape-async": "2.3.0",
-    "vision": "^5.4.4"
+    "tape": "5.5.3",
+    "tape-async": "2.3.0"
   },
   "pre-commit": [
     "check-coverage"

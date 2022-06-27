@@ -10,8 +10,8 @@ and send a *useful* message to the client.
 [![Known Vulnerabilities](https://snyk.io/test/github/dwyl/hapi-error/badge.svg?targetFile=package.json&style=flat-square)](https://snyk.io/test/github/dwyl/hapi-error?targetFile=package.json)
 [![Build Status](https://img.shields.io/travis/dwyl/hapi-error/master.svg?style=flat-square)](https://travis-ci.org/dwyl/hapi-error)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/hapi-error/master.svg?style=flat-square)](https://codecov.io/github/dwyl/hapi-error?branch=master)
-[![HAPI 18.4.x](https://img.shields.io/badge/hapi-18.4.0-brightgreen.svg?style=flat-square "Latest Hapi.js")](https://hapijs.com)
-[![Node.js Version](https://img.shields.io/node/v/hapi-error.svg?style=flat-square "Node.js 10 & 12 and io.js latest both supported")](https://nodejs.org/download/)
+[![HAPI 20.2.x](https://img.shields.io/badge/hapi-18.4.0-brightgreen.svg?style=flat-square "Latest Hapi.js")](https://hapijs.com)
+[![Node.js Version](https://img.shields.io/node/v/hapi-error.svg?style=flat-square "Node.js 14 and above supported")](https://nodejs.org/download/)
 [![Dependencies Status](https://david-dm.org/dwyl/hapi-error/status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error)
 [![devDependencies Status](https://david-dm.org/dwyl/hapi-error/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/hapi-error?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/hapi-error/issues)
@@ -72,10 +72,10 @@ The `hapi-error` plugin *re-purposes* the `Boom` errors (*both the standard Hapi
 > ***Note***: if the client expects a JSON response simply define
 that in the `headers.accept` and it will still receive the JSON error messages.
 
-## *v2.0.0 Changes*
-1. Support for Hapi.js v17
-2. Not backward compatible with Hapi.js < v17
-3. Requires NodeJS v8 and above
+## *v3.0.0 Changes*
+1. Support for Hapi.js v20
+2. Not backward compatible with Hapi.js < v18
+3. Requires NodeJS v14 and above
 
 ## *How*?
 
@@ -95,7 +95,7 @@ npm install hapi-error --save
 Include the plugin when you `register` your `server`:
 
 ```js
-var Hapi = require('hapi');
+var Hapi = require('@hapi/hapi');
 var Path = require('path');
 var server = new Hapi.Server({ port: process.env.PORT || 8000 });
 

@@ -1,9 +1,9 @@
 'use strict';
 
-var Hapi = require('hapi');
+var Hapi = require('@hapi/hapi');
 var Boom = require('@hapi/boom');
 var Hoek = require('@hapi/hoek');
-var Joi = require('joi');
+var Joi = require('@hapi/validate');
 
 var server = new Hapi.Server({ port: process.env.PORT });
 
@@ -51,7 +51,7 @@ server.route([
     path: '/register/{param*}',
     config: {
       validate: {
-        params: { param: Joi.string().min(4).max(160).alphanum() },
+        params: Joi.object({ param: Joi.string().min(4).max(160).alphanum() }),
       },
       handler: function (request, reply) {
         if(request.params.param.indexOf('script') > -1) { // more validation

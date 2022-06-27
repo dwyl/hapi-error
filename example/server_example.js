@@ -5,7 +5,7 @@ var Hoek   = require('@hapi/hoek');
 
 module.exports = async () => {
     try {
-        await server.register(require('vision'));
+        await server.register(require('@hapi/vision'));
         await server.register(require('../lib/index.js'));
         server.views({
             engines: {
